@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
 
-    <title>NoteSpace — Professional Notepad</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="styles.css">
+    <meta
+        name="theme-color"
+        content="#ffffff"
+    >
+
+    <title>NoteSpace</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
 </head>
 
 <body>
@@ -15,79 +27,174 @@
 <div class="app">
 
     <!-- =========================
-         LEFT SIDEBAR
+         SIDEBAR
     ========================== -->
-    <aside class="sidebar" id="sidebar">
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
 
         <div class="brand">
-            <div class="brand-icon">N</div>
+
+            <div class="brand-icon">
+                N
+            </div>
 
             <div>
                 <h1>NoteSpace</h1>
-                <p>Your personal workspace</p>
+
+                <p>
+                    Your personal workspace
+                </p>
             </div>
+
         </div>
 
-        <button class="new-note-btn" id="newNoteBtn">
+
+        <button
+            class="new-note-btn"
+            id="newNoteBtn"
+        >
             <span>＋</span>
+
             New Note
         </button>
 
+
         <nav class="navigation">
 
-            <button class="nav-item active" data-view="all">
-                <span class="nav-icon">▤</span>
-                <span>All Notes</span>
-                <span class="nav-count" id="allCount">0</span>
+            <button
+                class="nav-item active"
+                data-view="all"
+            >
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    All Notes
+                </span>
+
+                <span
+                    class="nav-count"
+                    id="allCount"
+                >
+                    0
+                </span>
             </button>
 
-            <button class="nav-item" data-view="favorites">
-                <span class="nav-icon">★</span>
-                <span>Favorites</span>
-                <span class="nav-count" id="favoriteCount">0</span>
+
+            <button
+                class="nav-item"
+                data-view="favorites"
+            >
+                <span class="nav-icon">
+                    ★
+                </span>
+
+                <span>
+                    Favorites
+                </span>
+
+                <span
+                    class="nav-count"
+                    id="favoriteCount"
+                >
+                    0
+                </span>
             </button>
 
-            <button class="nav-item" data-view="archive">
-                <span class="nav-icon">▣</span>
-                <span>Archive</span>
-                <span class="nav-count" id="archiveCount">0</span>
+
+            <button
+                class="nav-item"
+                data-view="archive"
+            >
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Archive
+                </span>
+
+                <span
+                    class="nav-count"
+                    id="archiveCount"
+                >
+                    0
+                </span>
             </button>
 
-            <button class="nav-item" data-view="trash">
-                <span class="nav-icon">⌫</span>
-                <span>Trash</span>
-                <span class="nav-count" id="trashCount">0</span>
+
+            <button
+                class="nav-item"
+                data-view="trash"
+            >
+                <span class="nav-icon">
+                    ⌫
+                </span>
+
+                <span>
+                    Trash
+                </span>
+
+                <span
+                    class="nav-count"
+                    id="trashCount"
+                >
+                    0
+                </span>
             </button>
 
         </nav>
 
-        <div class="sidebar-section-title">Workspace</div>
+
+        <div class="sidebar-section-title">
+            Workspace
+        </div>
+
 
         <div class="sidebar-actions">
 
             <button id="importBtn">
                 <span>⇧</span>
+
                 Import
             </button>
 
+
             <button id="backupBtn">
                 <span>⇩</span>
+
                 Backup Notes
             </button>
 
+
             <button id="shortcutsBtn">
                 <span>⌨</span>
+
                 Keyboard Shortcuts
             </button>
 
         </div>
 
+
         <div class="sidebar-footer">
 
-            <button class="theme-toggle" id="themeToggle">
-                <span id="themeIcon">☾</span>
-                <span id="themeText">Dark mode</span>
+            <button
+                class="theme-toggle"
+                id="themeToggle"
+            >
+                <span id="themeIcon">
+                    ☾
+                </span>
+
+                <span id="themeText">
+                    Dark mode
+                </span>
             </button>
+
 
             <div class="storage-info">
                 Notes are stored locally on this device.
@@ -98,23 +205,38 @@
     </aside>
 
 
+
     <!-- =========================
          NOTES LIST
     ========================== -->
+
     <section class="notes-panel">
 
         <header class="notes-header">
 
             <div class="mobile-header">
-                <button class="icon-button mobile-menu-btn" id="mobileMenuBtn">
+
+                <button
+                    class="icon-button mobile-menu-btn"
+                    id="mobileMenuBtn"
+                >
                     ☰
                 </button>
 
-                <h2 id="viewTitle">All Notes</h2>
+
+                <h2 id="viewTitle">
+                    All Notes
+                </h2>
+
             </div>
 
+
             <div class="search-box">
-                <span class="search-icon">⌕</span>
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
 
                 <input
                     id="searchInput"
@@ -123,20 +245,45 @@
                     autocomplete="off"
                 >
 
-                <button id="clearSearchBtn" class="clear-search hidden">
+
+                <button
+                    id="clearSearchBtn"
+                    class="clear-search hidden"
+                >
                     ×
                 </button>
+
             </div>
+
 
             <div class="list-options">
 
-                <span id="visibleCount">0 notes</span>
+                <span id="visibleCount">
+                    0 notes
+                </span>
 
-                <select id="sortSelect" title="Sort notes">
-                    <option value="updated">Last updated</option>
-                    <option value="created">Date created</option>
-                    <option value="title">Title A–Z</option>
-                    <option value="oldest">Oldest updated</option>
+
+                <select
+                    id="sortSelect"
+                    title="Sort notes"
+                >
+
+                    <option value="updated">
+                        Last updated
+                    </option>
+
+                    <option value="created">
+                        Date created
+                    </option>
+
+                    <option value="title">
+                        Title A-Z
+                    </option>
+
+                    <option value="oldest">
+                        Oldest updated
+                    </option>
+
                 </select>
 
             </div>
@@ -144,18 +291,31 @@
         </header>
 
 
-        <div class="notes-list" id="notesList"></div>
+        <div
+            class="notes-list"
+            id="notesList"
+        ></div>
 
 
-        <div class="empty-state hidden" id="emptyState">
+        <div
+            class="empty-state hidden"
+            id="emptyState"
+        >
 
-            <div class="empty-icon">✎</div>
+            <div class="empty-icon">
+                ✎
+            </div>
 
-            <h3 id="emptyTitle">No notes yet</h3>
+
+            <h3 id="emptyTitle">
+                No notes yet
+            </h3>
+
 
             <p id="emptyDescription">
                 Create a note to start writing.
             </p>
+
 
             <button id="emptyNewNoteBtn">
                 Create Note
@@ -166,20 +326,35 @@
     </section>
 
 
+
     <!-- =========================
          EDITOR
     ========================== -->
-    <main class="editor-panel" id="editorPanel">
 
-        <div class="no-note-selected" id="noNoteSelected">
+    <main
+        class="editor-panel"
+        id="editorPanel"
+    >
 
-            <div class="welcome-icon">N</div>
+        <div
+            class="no-note-selected"
+            id="noNoteSelected"
+        >
 
-            <h2>Select a note</h2>
+            <div class="welcome-icon">
+                N
+            </div>
+
+
+            <h2>
+                Select a note
+            </h2>
+
 
             <p>
                 Choose a note from the list or create a new one.
             </p>
+
 
             <button id="welcomeNewNoteBtn">
                 ＋ Create New Note
@@ -188,9 +363,14 @@
         </div>
 
 
-        <div class="editor-container hidden" id="editorContainer">
 
-            <!-- Editor top toolbar -->
+        <div
+            class="editor-container hidden"
+            id="editorContainer"
+        >
+
+            <!-- Toolbar -->
+
             <header class="editor-toolbar">
 
                 <div class="toolbar-left">
@@ -203,6 +383,7 @@
                         ☆
                     </button>
 
+
                     <button
                         class="icon-button"
                         id="pinBtn"
@@ -211,17 +392,51 @@
                         ♧
                     </button>
 
+
+                    <!-- NEW NOTE TYPE -->
+
+                    <select
+                        id="noteTypeSelect"
+                        title="Note type"
+                    >
+                        <option value="note">
+                            Note
+                        </option>
+
+                        <option value="todo">
+                            To-Do List
+                        </option>
+                    </select>
+
+
                     <select
                         id="colorSelect"
                         class="color-select"
                         title="Note color"
                     >
-                        <option value="default">Default</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="amber">Amber</option>
-                        <option value="rose">Rose</option>
-                        <option value="purple">Purple</option>
+                        <option value="default">
+                            Default
+                        </option>
+
+                        <option value="blue">
+                            Blue
+                        </option>
+
+                        <option value="green">
+                            Green
+                        </option>
+
+                        <option value="amber">
+                            Amber
+                        </option>
+
+                        <option value="rose">
+                            Rose
+                        </option>
+
+                        <option value="purple">
+                            Purple
+                        </option>
                     </select>
 
                 </div>
@@ -229,17 +444,22 @@
 
                 <div class="toolbar-right">
 
-                    <span class="save-status" id="saveStatus">
+                    <span
+                        class="save-status"
+                        id="saveStatus"
+                    >
                         Saved
                     </span>
+
 
                     <button
                         class="icon-button"
                         id="findBtn"
-                        title="Find & Replace (Ctrl+F)"
+                        title="Find & Replace"
                     >
                         ⌕
                     </button>
+
 
                     <button
                         class="icon-button"
@@ -249,6 +469,7 @@
                         ⧉
                     </button>
 
+
                     <button
                         class="icon-button"
                         id="duplicateBtn"
@@ -256,6 +477,7 @@
                     >
                         ⧠
                     </button>
+
 
                     <button
                         class="icon-button"
@@ -265,6 +487,7 @@
                         ⎙
                     </button>
 
+
                     <button
                         class="icon-button"
                         id="exportNoteBtn"
@@ -272,6 +495,7 @@
                     >
                         ⇩
                     </button>
+
 
                     <button
                         class="icon-button"
@@ -281,6 +505,7 @@
                         ▣
                     </button>
 
+
                     <button
                         class="icon-button danger"
                         id="deleteBtn"
@@ -288,6 +513,7 @@
                     >
                         ⌫
                     </button>
+
 
                     <button
                         class="icon-button"
@@ -302,35 +528,49 @@
             </header>
 
 
-            <!-- Find / replace -->
-            <div class="find-panel hidden" id="findPanel">
 
-                <div class="find-input-wrapper">
-                    <input
-                        type="text"
-                        id="findInput"
-                        placeholder="Find..."
-                    >
-                </div>
+            <!-- FIND / REPLACE -->
 
-                <div class="find-input-wrapper">
-                    <input
-                        type="text"
-                        id="replaceInput"
-                        placeholder="Replace with..."
-                    >
-                </div>
+            <div
+                class="find-panel hidden"
+                id="findPanel"
+            >
 
-                <button id="findNextBtn">Find Next</button>
-                <button id="replaceBtn">Replace</button>
-                <button id="replaceAllBtn">Replace All</button>
+                <input
+                    type="text"
+                    id="findInput"
+                    placeholder="Find..."
+                >
 
-                <span class="find-status" id="findStatus"></span>
+
+                <input
+                    type="text"
+                    id="replaceInput"
+                    placeholder="Replace with..."
+                >
+
+
+                <button id="findNextBtn">
+                    Find Next
+                </button>
+
+
+                <button id="replaceBtn">
+                    Replace
+                </button>
+
+
+                <button id="replaceAllBtn">
+                    Replace All
+                </button>
+
+
+                <span id="findStatus"></span>
+
 
                 <button
                     class="icon-button"
                     id="closeFindBtn"
-                    title="Close"
                 >
                     ×
                 </button>
@@ -338,7 +578,9 @@
             </div>
 
 
-            <!-- Main editor -->
+
+            <!-- EDITOR CONTENT -->
+
             <section class="editor-content">
 
                 <input
@@ -349,15 +591,24 @@
                     maxlength="150"
                 >
 
+
                 <div class="note-meta">
+
                     <span id="createdDate"></span>
-                    <span class="meta-dot">•</span>
+
+                    <span>•</span>
+
                     <span id="updatedDate"></span>
+
                 </div>
+
 
                 <div class="tags-row">
 
-                    <span class="tags-icon">#</span>
+                    <span>
+                        #
+                    </span>
+
 
                     <input
                         type="text"
@@ -367,6 +618,10 @@
 
                 </div>
 
+
+
+                <!-- NORMAL NOTE -->
+
                 <textarea
                     id="noteContent"
                     class="note-content"
@@ -374,37 +629,97 @@
                     spellcheck="true"
                 ></textarea>
 
+
+
+                <!-- =========================
+                     NEW TO-DO LIST
+                ========================== -->
+
+                <div
+                    id="todoContainer"
+                    class="todo-container hidden"
+                >
+
+                    <div class="todo-add-section">
+
+                        <input
+                            type="text"
+                            id="todoInput"
+                            placeholder="Enter a new task..."
+                            autocomplete="off"
+                        >
+
+
+                        <button id="addTodoBtn">
+                            Add Task
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="todoList"
+                        class="todo-list"
+                    ></div>
+
+
+                    <button
+                        id="clearCompletedBtn"
+                        class="clear-completed-btn"
+                    >
+                        Clear Completed
+                    </button>
+
+                </div>
+
             </section>
 
 
-            <!-- Bottom statusbar -->
+
+            <!-- STATUS -->
+
             <footer class="status-bar">
 
                 <div class="stats">
 
-                    <span id="wordCount">0 words</span>
-                    <span id="charCount">0 characters</span>
-                    <span id="lineCount">1 line</span>
+                    <span id="wordCount">
+                        0 words
+                    </span>
+
+
+                    <span id="charCount">
+                        0 characters
+                    </span>
+
+
+                    <span id="lineCount">
+                        1 line
+                    </span>
+
+
+                    <span
+                        id="taskCount"
+                        class="hidden"
+                    >
+                        0 tasks
+                    </span>
 
                 </div>
 
+
                 <div class="editor-settings">
 
-                    <button
-                        id="decreaseFontBtn"
-                        title="Decrease font size"
-                    >
+                    <button id="decreaseFontBtn">
                         A−
                     </button>
+
 
                     <span id="fontSizeLabel">
                         16px
                     </span>
 
-                    <button
-                        id="increaseFontBtn"
-                        title="Increase font size"
-                    >
+
+                    <button id="increaseFontBtn">
                         A+
                     </button>
 
@@ -419,72 +734,96 @@
 </div>
 
 
-<!-- =========================
-     MOBILE OVERLAY
-========================== -->
-<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- MOBILE OVERLAY -->
+
+<div
+    class="mobile-overlay"
+    id="mobileOverlay"
+></div>
 
 
-<!-- =========================
-     SHORTCUTS DIALOG
-========================== -->
-<dialog id="shortcutsDialog" class="dialog">
+
+<!-- SHORTCUTS -->
+
+<dialog
+    id="shortcutsDialog"
+    class="dialog"
+>
 
     <div class="dialog-header">
 
         <div>
-            <h2>Keyboard Shortcuts</h2>
-            <p>Work faster with NoteSpace.</p>
+
+            <h2>
+                Keyboard Shortcuts
+            </h2>
+
+            <p>
+                Work faster with NoteSpace.
+            </p>
+
         </div>
 
-        <button class="dialog-close" id="closeShortcutsBtn">
+
+        <button
+            class="dialog-close"
+            id="closeShortcutsBtn"
+        >
             ×
         </button>
 
     </div>
 
+
     <div class="shortcut-list">
 
         <div>
             <span>New note</span>
+
             <kbd>Ctrl</kbd>
             <kbd>N</kbd>
         </div>
 
+
         <div>
             <span>Save note</span>
+
             <kbd>Ctrl</kbd>
             <kbd>S</kbd>
         </div>
 
-        <div>
-            <span>Find & replace</span>
-            <kbd>Ctrl</kbd>
-            <kbd>F</kbd>
-        </div>
 
         <div>
-            <span>Focus search</span>
+            <span>Search notes</span>
+
             <kbd>Ctrl</kbd>
             <kbd>K</kbd>
         </div>
 
+
         <div>
-            <span>Toggle favorite</span>
+            <span>Find text</span>
+
+            <kbd>Ctrl</kbd>
+            <kbd>F</kbd>
+        </div>
+
+
+        <div>
+            <span>Favorite note</span>
+
             <kbd>Ctrl</kbd>
             <kbd>Shift</kbd>
             <kbd>F</kbd>
         </div>
 
-        <div>
-            <span>Export current note</span>
-            <kbd>Ctrl</kbd>
-            <kbd>E</kbd>
-        </div>
 
         <div>
-            <span>Close find / focus mode</span>
-            <kbd>Esc</kbd>
+            <span>Export note</span>
+
+            <kbd>Ctrl</kbd>
+            <kbd>E</kbd>
         </div>
 
     </div>
@@ -492,7 +831,7 @@
 </dialog>
 
 
-<!-- Import file picker -->
+
 <input
     type="file"
     id="fileInput"
@@ -504,4 +843,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>

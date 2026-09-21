@@ -1,343 +1,603 @@
 "use strict";
 
-/* =========================================================
-   NOTESPace
-   Professional Browser Notepad
-========================================================= */
+
+/* ==========================================
+   STORAGE
+========================================== */
+
+const NOTES_KEY =
+    "notespace.notes.v2";
+
+const SETTINGS_KEY =
+    "notespace.settings.v1";
 
 
-/* =========================================================
-   STORAGE KEYS
-========================================================= */
 
-const NOTES_KEY = "notespace.notes.v1";
-const SETTINGS_KEY = "notespace.settings.v1";
+/* ==========================================
+   DOM
+========================================== */
 
-
-/* =========================================================
-   DOM REFERENCES
-========================================================= */
-
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
-
-const sidebar = $("#sidebar");
-const notesList = $("#notesList");
-const editorPanel = $("#editorPanel");
-const editorContainer = $("#editorContainer");
-const noNoteSelected = $("#noNoteSelected");
-
-const newNoteBtn = $("#newNoteBtn");
-const emptyNewNoteBtn = $("#emptyNewNoteBtn");
-const welcomeNewNoteBtn = $("#welcomeNewNoteBtn");
-
-const searchInput = $("#searchInput");
-const clearSearchBtn = $("#clearSearchBtn");
-const sortSelect = $("#sortSelect");
-
-const viewTitle = $("#viewTitle");
-const visibleCount = $("#visibleCount");
-
-const allCount = $("#allCount");
-const favoriteCount = $("#favoriteCount");
-const archiveCount = $("#archiveCount");
-const trashCount = $("#trashCount");
-
-const emptyState = $("#emptyState");
-const emptyTitle = $("#emptyTitle");
-const emptyDescription = $("#emptyDescription");
-
-const noteTitle = $("#noteTitle");
-const noteContent = $("#noteContent");
-const tagsInput = $("#tagsInput");
-
-const createdDate = $("#createdDate");
-const updatedDate = $("#updatedDate");
-
-const favoriteBtn = $("#favoriteBtn");
-const pinBtn = $("#pinBtn");
-const colorSelect = $("#colorSelect");
-
-const copyBtn = $("#copyBtn");
-const duplicateBtn = $("#duplicateBtn");
-const archiveBtn = $("#archiveBtn");
-const deleteBtn = $("#deleteBtn");
-const exportNoteBtn = $("#exportNoteBtn");
-const printBtn = $("#printBtn");
-const focusBtn = $("#focusBtn");
-
-const saveStatus = $("#saveStatus");
-
-const wordCount = $("#wordCount");
-const charCount = $("#charCount");
-const lineCount = $("#lineCount");
-
-const decreaseFontBtn = $("#decreaseFontBtn");
-const increaseFontBtn = $("#increaseFontBtn");
-const fontSizeLabel = $("#fontSizeLabel");
-
-const themeToggle = $("#themeToggle");
-const themeIcon = $("#themeIcon");
-const themeText = $("#themeText");
-
-const backupBtn = $("#backupBtn");
-const importBtn = $("#importBtn");
-const fileInput = $("#fileInput");
-
-const shortcutsBtn = $("#shortcutsBtn");
-const shortcutsDialog = $("#shortcutsDialog");
-const closeShortcutsBtn = $("#closeShortcutsBtn");
-
-const findBtn = $("#findBtn");
-const findPanel = $("#findPanel");
-const findInput = $("#findInput");
-const replaceInput = $("#replaceInput");
-const findNextBtn = $("#findNextBtn");
-const replaceBtn = $("#replaceBtn");
-const replaceAllBtn = $("#replaceAllBtn");
-const closeFindBtn = $("#closeFindBtn");
-const findStatus = $("#findStatus");
-
-const mobileMenuBtn = $("#mobileMenuBtn");
-const mobileOverlay = $("#mobileOverlay");
+const $ =
+    (selector) =>
+        document.querySelector(selector);
 
 
-/* =========================================================
-   APPLICATION STATE
-========================================================= */
+const $$ =
+    (selector) =>
+        document.querySelectorAll(selector);
+
+
+
+const sidebar =
+    $("#sidebar");
+
+const notesList =
+    $("#notesList");
+
+const editorPanel =
+    $("#editorPanel");
+
+const editorContainer =
+    $("#editorContainer");
+
+const noNoteSelected =
+    $("#noNoteSelected");
+
+
+
+const newNoteBtn =
+    $("#newNoteBtn");
+
+const emptyNewNoteBtn =
+    $("#emptyNewNoteBtn");
+
+const welcomeNewNoteBtn =
+    $("#welcomeNewNoteBtn");
+
+
+
+const searchInput =
+    $("#searchInput");
+
+const clearSearchBtn =
+    $("#clearSearchBtn");
+
+const sortSelect =
+    $("#sortSelect");
+
+
+
+const viewTitle =
+    $("#viewTitle");
+
+const visibleCount =
+    $("#visibleCount");
+
+
+
+const allCount =
+    $("#allCount");
+
+const favoriteCount =
+    $("#favoriteCount");
+
+const archiveCount =
+    $("#archiveCount");
+
+const trashCount =
+    $("#trashCount");
+
+
+
+const emptyState =
+    $("#emptyState");
+
+const emptyTitle =
+    $("#emptyTitle");
+
+const emptyDescription =
+    $("#emptyDescription");
+
+
+
+const noteTitle =
+    $("#noteTitle");
+
+const noteContent =
+    $("#noteContent");
+
+const tagsInput =
+    $("#tagsInput");
+
+
+
+const noteTypeSelect =
+    $("#noteTypeSelect");
+
+
+
+const todoContainer =
+    $("#todoContainer");
+
+const todoInput =
+    $("#todoInput");
+
+const addTodoBtn =
+    $("#addTodoBtn");
+
+const todoList =
+    $("#todoList");
+
+const clearCompletedBtn =
+    $("#clearCompletedBtn");
+
+const taskCount =
+    $("#taskCount");
+
+
+
+const createdDate =
+    $("#createdDate");
+
+const updatedDate =
+    $("#updatedDate");
+
+
+
+const favoriteBtn =
+    $("#favoriteBtn");
+
+const pinBtn =
+    $("#pinBtn");
+
+const colorSelect =
+    $("#colorSelect");
+
+
+
+const copyBtn =
+    $("#copyBtn");
+
+const duplicateBtn =
+    $("#duplicateBtn");
+
+const archiveBtn =
+    $("#archiveBtn");
+
+const deleteBtn =
+    $("#deleteBtn");
+
+const exportNoteBtn =
+    $("#exportNoteBtn");
+
+const printBtn =
+    $("#printBtn");
+
+const focusBtn =
+    $("#focusBtn");
+
+
+
+const saveStatus =
+    $("#saveStatus");
+
+
+
+const wordCount =
+    $("#wordCount");
+
+const charCount =
+    $("#charCount");
+
+const lineCount =
+    $("#lineCount");
+
+
+
+const decreaseFontBtn =
+    $("#decreaseFontBtn");
+
+const increaseFontBtn =
+    $("#increaseFontBtn");
+
+const fontSizeLabel =
+    $("#fontSizeLabel");
+
+
+
+const themeToggle =
+    $("#themeToggle");
+
+const themeIcon =
+    $("#themeIcon");
+
+const themeText =
+    $("#themeText");
+
+
+
+const backupBtn =
+    $("#backupBtn");
+
+const importBtn =
+    $("#importBtn");
+
+const fileInput =
+    $("#fileInput");
+
+
+
+const shortcutsBtn =
+    $("#shortcutsBtn");
+
+const shortcutsDialog =
+    $("#shortcutsDialog");
+
+const closeShortcutsBtn =
+    $("#closeShortcutsBtn");
+
+
+
+const findBtn =
+    $("#findBtn");
+
+const findPanel =
+    $("#findPanel");
+
+const findInput =
+    $("#findInput");
+
+const replaceInput =
+    $("#replaceInput");
+
+const findNextBtn =
+    $("#findNextBtn");
+
+const replaceBtn =
+    $("#replaceBtn");
+
+const replaceAllBtn =
+    $("#replaceAllBtn");
+
+const closeFindBtn =
+    $("#closeFindBtn");
+
+const findStatus =
+    $("#findStatus");
+
+
+
+const mobileMenuBtn =
+    $("#mobileMenuBtn");
+
+const mobileOverlay =
+    $("#mobileOverlay");
+
+
+
+/* ==========================================
+   STATE
+========================================== */
 
 let notes = [];
 
 let selectedNoteId = null;
 
-let currentView = "all";
+let currentView =
+    "all";
 
 let saveTimer = null;
 
+
+
 let settings = {
+
     theme: "light",
+
     sort: "updated",
+
     fontSize: 16
+
 };
 
 
-/* =========================================================
+
+/* ==========================================
    UTILITIES
-========================================================= */
+========================================== */
 
 function generateId() {
+
     if (
-        typeof crypto !== "undefined" &&
-        typeof crypto.randomUUID === "function"
+        typeof crypto !==
+            "undefined" &&
+        crypto.randomUUID
     ) {
+
         return crypto.randomUUID();
+
     }
+
 
     return (
         Date.now().toString(36) +
-        Math.random().toString(36).substring(2, 10)
+        Math.random()
+            .toString(36)
+            .substring(2)
     );
+
 }
 
-
-function escapeFileName(name) {
-    return (
-        name
-            .trim()
-            .replace(/[<>:"/\\|?*\u0000-\u001F]/g, "-")
-            .replace(/\s+/g, " ")
-            .substring(0, 80) ||
-        "Untitled Note"
-    );
-}
-
-
-function formatDate(timestamp) {
-    if (!timestamp) return "";
-
-    const date = new Date(timestamp);
-
-    return new Intl.DateTimeFormat(undefined, {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
-    }).format(date);
-}
-
-
-function formatShortDate(timestamp) {
-    const date = new Date(timestamp);
-
-    const now = new Date();
-
-    const sameDay =
-        date.getFullYear() === now.getFullYear() &&
-        date.getMonth() === now.getMonth() &&
-        date.getDate() === now.getDate();
-
-    if (sameDay) {
-        return new Intl.DateTimeFormat(undefined, {
-            hour: "numeric",
-            minute: "2-digit"
-        }).format(date);
-    }
-
-    return new Intl.DateTimeFormat(undefined, {
-        month: "short",
-        day: "numeric"
-    }).format(date);
-}
-
-
-function pluralize(number, singular, plural = `${singular}s`) {
-    return `${number} ${number === 1 ? singular : plural}`;
-}
 
 
 function getSelectedNote() {
+
     return notes.find(
-        (note) => note.id === selectedNoteId
+        note =>
+            note.id ===
+            selectedNoteId
     );
+
 }
 
 
-function downloadFile(fileName, content, mimeType) {
-    const blob = new Blob(
-        [content],
-        {
-            type: mimeType
-        }
+
+function pluralize(
+    number,
+    singular,
+    plural = `${singular}s`
+) {
+
+    return (
+        `${number} ${
+            number === 1
+                ? singular
+                : plural
+        }`
     );
 
-    const url = URL.createObjectURL(blob);
-
-    const anchor = document.createElement("a");
-
-    anchor.href = url;
-    anchor.download = fileName;
-
-    document.body.appendChild(anchor);
-
-    anchor.click();
-    anchor.remove();
-
-    URL.revokeObjectURL(url);
 }
+
+
+
+function formatDate(timestamp) {
+
+    if (!timestamp) {
+        return "";
+    }
+
+
+    return new Intl
+        .DateTimeFormat(
+            undefined,
+            {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "2-digit"
+            }
+        )
+        .format(
+            new Date(timestamp)
+        );
+
+}
+
+
+
+function formatShortDate(timestamp) {
+
+    if (!timestamp) {
+        return "";
+    }
+
+
+    const date =
+        new Date(timestamp);
+
+
+    return new Intl
+        .DateTimeFormat(
+            undefined,
+            {
+                month: "short",
+                day: "numeric"
+            }
+        )
+        .format(date);
+
+}
+
 
 
 function normalizeTags(value) {
-    const tags = value
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean);
 
-    return [...new Set(tags)].slice(0, 15);
+    return [
+        ...new Set(
+            value
+                .split(",")
+                .map(
+                    tag =>
+                        tag.trim()
+                )
+                .filter(Boolean)
+        )
+    ].slice(0, 15);
+
 }
 
 
-/* =========================================================
-   STORAGE
-========================================================= */
 
-function saveNotes() {
-    localStorage.setItem(
-        NOTES_KEY,
-        JSON.stringify(notes)
+function downloadFile(
+    filename,
+    content,
+    type
+) {
+
+    const blob =
+        new Blob(
+            [content],
+            {
+                type
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href = url;
+
+    link.download =
+        filename;
+
+
+    document.body
+        .appendChild(link);
+
+
+    link.click();
+
+    link.remove();
+
+
+    URL.revokeObjectURL(
+        url
     );
+
 }
 
 
-function saveSettings() {
-    localStorage.setItem(
-        SETTINGS_KEY,
-        JSON.stringify(settings)
+
+function safeFilename(name) {
+
+    return (
+        name
+            .replace(
+                /[<>:"/\\|?*]/g,
+                "-"
+            )
+            .trim()
+            .substring(0, 70)
+        ||
+        "Untitled Note"
     );
+
 }
 
 
-function loadData() {
-    try {
-        const storedNotes = JSON.parse(
-            localStorage.getItem(NOTES_KEY)
-        );
 
-        if (Array.isArray(storedNotes)) {
-            notes = storedNotes.map(normalizeImportedNote);
-        }
-    } catch (error) {
-        console.error("Unable to load notes:", error);
-        notes = [];
-    }
+/* ==========================================
+   NORMALIZE NOTE DATA
+========================================== */
 
+function normalizeNote(note = {}) {
 
-    try {
-        const storedSettings = JSON.parse(
-            localStorage.getItem(SETTINGS_KEY)
-        );
+    const now =
+        Date.now();
 
-        if (
-            storedSettings &&
-            typeof storedSettings === "object"
-        ) {
-            settings = {
-                ...settings,
-                ...storedSettings
-            };
-        }
-    } catch (error) {
-        console.error(
-            "Unable to load settings:",
-            error
-        );
-    }
-}
-
-
-function normalizeImportedNote(note = {}) {
-    const now = Date.now();
 
     return {
+
         id:
-            typeof note.id === "string"
+            typeof note.id ===
+            "string"
                 ? note.id
                 : generateId(),
 
+
         title:
-            typeof note.title === "string"
+            typeof note.title ===
+            "string"
                 ? note.title
                 : "",
 
+
         content:
-            typeof note.content === "string"
+            typeof note.content ===
+            "string"
                 ? note.content
                 : "",
 
-        tags:
-            Array.isArray(note.tags)
-                ? note.tags
-                    .filter(
-                        (tag) =>
-                            typeof tag === "string"
-                    )
-                    .slice(0, 15)
+
+        type:
+            note.type === "todo"
+                ? "todo"
+                : "note",
+
+
+        tasks:
+            Array.isArray(
+                note.tasks
+            )
+                ? note.tasks.map(
+                    task => ({
+                        id:
+                            task.id ||
+                            generateId(),
+
+                        text:
+                            typeof task.text ===
+                            "string"
+                                ? task.text
+                                : "",
+
+                        done:
+                            Boolean(
+                                task.done
+                            )
+                    })
+                )
                 : [],
 
+
+        tags:
+            Array.isArray(
+                note.tags
+            )
+                ? note.tags
+                : [],
+
+
         isFavorite:
-            Boolean(note.isFavorite),
+            Boolean(
+                note.isFavorite
+            ),
+
 
         isPinned:
-            Boolean(note.isPinned),
+            Boolean(
+                note.isPinned
+            ),
+
 
         isArchived:
-            Boolean(note.isArchived),
+            Boolean(
+                note.isArchived
+            ),
+
 
         isTrashed:
-            Boolean(note.isTrashed),
+            Boolean(
+                note.isTrashed
+            ),
+
 
         deletedAt:
-            Number(note.deletedAt) || null,
+            Number(
+                note.deletedAt
+            ) || null,
+
 
         color:
             [
@@ -347,219 +607,428 @@ function normalizeImportedNote(note = {}) {
                 "amber",
                 "rose",
                 "purple"
-            ].includes(note.color)
+            ].includes(
+                note.color
+            )
                 ? note.color
                 : "default",
 
+
         createdAt:
-            Number(note.createdAt) || now,
+            Number(
+                note.createdAt
+            ) || now,
+
 
         updatedAt:
-            Number(note.updatedAt) || now
+            Number(
+                note.updatedAt
+            ) || now
+
     };
+
 }
 
 
-/* =========================================================
-   FIRST-TIME SAMPLE NOTE
-========================================================= */
 
-function createWelcomeNote() {
-    if (notes.length > 0) return;
+/* ==========================================
+   STORAGE
+========================================== */
 
-    const now = Date.now();
+function saveNotes() {
 
-    notes.push({
-        id: generateId(),
+    localStorage.setItem(
+        NOTES_KEY,
+        JSON.stringify(notes)
+    );
 
-        title: "Welcome to NoteSpace",
-
-        content:
-`Welcome to your professional browser notepad.
-
-Everything you write is automatically saved on this device.
-
-Useful features:
-• Create unlimited notes
-• Search instantly
-• Favorite important notes
-• Pin notes to the top
-• Organize with tags
-• Archive old notes
-• Restore notes from Trash
-• Find and replace text
-• Export notes as TXT
-• Backup all notes as JSON
-• Import TXT and JSON files
-• Print notes
-• Light and dark themes
-• Adjustable editor font size
-• Focus mode
-• Keyboard shortcuts
-
-Start writing by editing this note or creating a new one.`,
-
-        tags: [
-            "welcome",
-            "notespace"
-        ],
-
-        isFavorite: true,
-        isPinned: true,
-        isArchived: false,
-        isTrashed: false,
-        deletedAt: null,
-
-        color: "purple",
-
-        createdAt: now,
-        updatedAt: now
-    });
-
-    saveNotes();
 }
 
 
-/* =========================================================
-   SETTINGS
-========================================================= */
 
-function applySettings() {
+function saveSettings() {
 
-    /* Theme */
+    localStorage.setItem(
+        SETTINGS_KEY,
+        JSON.stringify(settings)
+    );
 
-    document.documentElement.dataset.theme =
-        settings.theme;
+}
 
-    if (settings.theme === "dark") {
-        themeIcon.textContent = "☀";
-        themeText.textContent = "Light mode";
 
-        document
-            .querySelector('meta[name="theme-color"]')
-            ?.setAttribute(
-                "content",
-                "#131922"
+
+function loadData() {
+
+    /*
+     Try new version first.
+    */
+
+    let stored =
+        localStorage.getItem(
+            NOTES_KEY
+        );
+
+
+    /*
+     Load old version if user
+     already had the previous app.
+    */
+
+    if (!stored) {
+
+        stored =
+            localStorage.getItem(
+                "notespace.notes.v1"
             );
-    } else {
-        themeIcon.textContent = "☾";
-        themeText.textContent = "Dark mode";
 
-        document
-            .querySelector('meta[name="theme-color"]')
-            ?.setAttribute(
-                "content",
-                "#ffffff"
-            );
     }
 
 
-    /* Sort */
+    try {
 
-    sortSelect.value = settings.sort;
+        const parsed =
+            JSON.parse(stored);
 
 
-    /* Editor font */
+        if (
+            Array.isArray(parsed)
+        ) {
 
-    settings.fontSize = Math.max(
-        12,
-        Math.min(
-            26,
-            Number(settings.fontSize) || 16
-        )
-    );
+            notes =
+                parsed.map(
+                    normalizeNote
+                );
 
-    document.documentElement.style.setProperty(
-        "--editor-font-size",
-        `${settings.fontSize}px`
-    );
+        }
 
-    fontSizeLabel.textContent =
-        `${settings.fontSize}px`;
+    } catch {
+
+        notes = [];
+
+    }
+
+
+
+    try {
+
+        const storedSettings =
+            JSON.parse(
+                localStorage.getItem(
+                    SETTINGS_KEY
+                )
+            );
+
+
+        if (storedSettings) {
+
+            settings = {
+
+                ...settings,
+
+                ...storedSettings
+
+            };
+
+        }
+
+    } catch {
+
+        // Use defaults
+
+    }
+
 }
 
 
-/* =========================================================
-   CREATE NOTE
-========================================================= */
 
-function createNewNote() {
-    const now = Date.now();
+/* ==========================================
+   WELCOME NOTE
+========================================== */
 
-    const note = {
-        id: generateId(),
+function createWelcomeNote() {
 
-        title: "",
-        content: "",
-        tags: [],
+    if (
+        notes.length > 0
+    ) {
+        return;
+    }
 
-        isFavorite: false,
-        isPinned: false,
-        isArchived: false,
-        isTrashed: false,
 
-        deletedAt: null,
+    const now =
+        Date.now();
 
-        color: "default",
 
-        createdAt: now,
-        updatedAt: now
-    };
+    notes.push({
 
-    notes.unshift(note);
+        id:
+            generateId(),
+
+        title:
+            "Welcome to NoteSpace",
+
+        content:
+`Welcome to your notepad.
+
+You can now create normal notes or To-Do Lists.
+
+Use the Note / To-Do List dropdown in the editor toolbar to change the note type.`,
+
+        type:
+            "note",
+
+        tasks: [],
+
+        tags: [
+            "welcome"
+        ],
+
+        isFavorite:
+            true,
+
+        isPinned:
+            true,
+
+        isArchived:
+            false,
+
+        isTrashed:
+            false,
+
+        deletedAt:
+            null,
+
+        color:
+            "default",
+
+        createdAt:
+            now,
+
+        updatedAt:
+            now
+
+    });
+
 
     saveNotes();
 
-    currentView = "all";
+}
 
-    updateNavigation();
 
-    selectedNoteId = note.id;
+
+/* ==========================================
+   SETTINGS
+========================================== */
+
+function applySettings() {
+
+    document
+        .documentElement
+        .dataset
+        .theme =
+            settings.theme;
+
+
+    if (
+        settings.theme ===
+        "dark"
+    ) {
+
+        themeIcon.textContent =
+            "☀";
+
+        themeText.textContent =
+            "Light mode";
+
+    } else {
+
+        themeIcon.textContent =
+            "☾";
+
+        themeText.textContent =
+            "Dark mode";
+
+    }
+
+
+    sortSelect.value =
+        settings.sort;
+
+
+    settings.fontSize =
+        Math.max(
+            12,
+            Math.min(
+                26,
+                Number(
+                    settings.fontSize
+                ) || 16
+            )
+        );
+
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--editor-font-size",
+            `${settings.fontSize}px`
+        );
+
+
+    fontSizeLabel.textContent =
+        `${settings.fontSize}px`;
+
+}
+
+
+
+/* ==========================================
+   CREATE NOTE
+========================================== */
+
+function createNewNote() {
+
+    flushCurrentNote();
+
+
+    const now =
+        Date.now();
+
+
+    const note = {
+
+        id:
+            generateId(),
+
+        title:
+            "",
+
+        content:
+            "",
+
+        type:
+            "note",
+
+        tasks:
+            [],
+
+        tags:
+            [],
+
+        isFavorite:
+            false,
+
+        isPinned:
+            false,
+
+        isArchived:
+            false,
+
+        isTrashed:
+            false,
+
+        deletedAt:
+            null,
+
+        color:
+            "default",
+
+        createdAt:
+            now,
+
+        updatedAt:
+            now
+
+    };
+
+
+    notes.unshift(note);
+
+
+    currentView =
+        "all";
+
+
+    selectedNoteId =
+        note.id;
+
+
+    saveNotes();
 
     render();
 
     openEditorOnMobile();
 
-    requestAnimationFrame(() => {
-        noteTitle.focus();
-    });
+
+    requestAnimationFrame(
+        () => {
+
+            noteTitle.focus();
+
+        }
+    );
+
 }
 
 
-/* =========================================================
-   FILTER / SORT NOTES
-========================================================= */
+
+/* ==========================================
+   FILTER NOTES
+========================================== */
 
 function getVisibleNotes() {
 
-    let filtered = notes.filter((note) => {
+    let filtered =
+        notes.filter(
+            note => {
 
-        switch (currentView) {
+                if (
+                    currentView ===
+                    "favorites"
+                ) {
 
-            case "favorites":
+                    return (
+                        note.isFavorite &&
+                        !note.isArchived &&
+                        !note.isTrashed
+                    );
+
+                }
+
+
+                if (
+                    currentView ===
+                    "archive"
+                ) {
+
+                    return (
+                        note.isArchived &&
+                        !note.isTrashed
+                    );
+
+                }
+
+
+                if (
+                    currentView ===
+                    "trash"
+                ) {
+
+                    return (
+                        note.isTrashed
+                    );
+
+                }
+
+
                 return (
-                    note.isFavorite &&
                     !note.isArchived &&
                     !note.isTrashed
                 );
 
-            case "archive":
-                return (
-                    note.isArchived &&
-                    !note.isTrashed
-                );
+            }
+        );
 
-            case "trash":
-                return note.isTrashed;
-
-            case "all":
-            default:
-                return (
-                    !note.isArchived &&
-                    !note.isTrashed
-                );
-        }
-    });
 
 
     const query =
@@ -567,102 +1036,203 @@ function getVisibleNotes() {
             .trim()
             .toLowerCase();
 
+
+
     if (query) {
-        filtered = filtered.filter((note) => {
 
-            const title =
-                note.title.toLowerCase();
+        filtered =
+            filtered.filter(
+                note => {
 
-            const content =
-                note.content.toLowerCase();
+                    const tasks =
+                        note.tasks
+                            .map(
+                                task =>
+                                    task.text
+                            )
+                            .join(" ")
+                            .toLowerCase();
 
-            const tags =
-                note.tags
-                    .join(" ")
-                    .toLowerCase();
 
-            return (
-                title.includes(query) ||
-                content.includes(query) ||
-                tags.includes(query)
+                    return (
+
+                        note.title
+                            .toLowerCase()
+                            .includes(query)
+
+                        ||
+
+                        note.content
+                            .toLowerCase()
+                            .includes(query)
+
+                        ||
+
+                        note.tags
+                            .join(" ")
+                            .toLowerCase()
+                            .includes(query)
+
+                        ||
+
+                        tasks.includes(
+                            query
+                        )
+
+                    );
+
+                }
             );
-        });
+
     }
 
 
-    filtered.sort((a, b) => {
 
-        if (currentView !== "trash") {
-
-            if (
-                a.isPinned &&
-                !b.isPinned
-            ) {
-                return -1;
-            }
+    filtered.sort(
+        (a, b) => {
 
             if (
-                !a.isPinned &&
-                b.isPinned
+                currentView !==
+                "trash"
             ) {
-                return 1;
+
+                if (
+                    a.isPinned &&
+                    !b.isPinned
+                ) {
+                    return -1;
+                }
+
+
+                if (
+                    !a.isPinned &&
+                    b.isPinned
+                ) {
+                    return 1;
+                }
+
             }
 
-        }
+
+            switch (
+                settings.sort
+            ) {
+
+                case "created":
+
+                    return (
+                        b.createdAt -
+                        a.createdAt
+                    );
 
 
-        switch (settings.sort) {
+                case "oldest":
 
-            case "created":
-                return (
-                    b.createdAt -
-                    a.createdAt
-                );
+                    return (
+                        a.updatedAt -
+                        b.updatedAt
+                    );
 
-            case "title":
-                return (
-                    (a.title || "Untitled Note")
+
+                case "title":
+
+                    return (
+                        (
+                            a.title ||
+                            "Untitled"
+                        )
                         .localeCompare(
                             b.title ||
-                            "Untitled Note",
-                            undefined,
-                            {
-                                sensitivity: "base"
-                            }
+                            "Untitled"
                         )
-                );
+                    );
 
-            case "oldest":
-                return (
-                    a.updatedAt -
-                    b.updatedAt
-                );
 
-            case "updated":
-            default:
-                return (
-                    b.updatedAt -
-                    a.updatedAt
-                );
+                default:
+
+                    return (
+                        b.updatedAt -
+                        a.updatedAt
+                    );
+
+            }
+
         }
-
-    });
+    );
 
 
     return filtered;
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    RENDER
-========================================================= */
+========================================== */
 
 function render() {
+
     updateCounts();
-    renderNotesList();
-    renderEditor();
+
     updateNavigation();
+
+    renderNotesList();
+
+    renderEditor();
+
 }
+
+
+
+/* ==========================================
+   NOTE LIST
+========================================== */
+
+function getNotePreview(note) {
+
+    if (
+        note.type ===
+        "todo"
+    ) {
+
+        if (
+            note.tasks.length ===
+            0
+        ) {
+
+            return "Empty to-do list";
+
+        }
+
+
+        const completed =
+            note.tasks.filter(
+                task =>
+                    task.done
+            ).length;
+
+
+        return (
+            `${completed}/${note.tasks.length} completed - ` +
+            note.tasks
+                .map(
+                    task =>
+                        task.text
+                )
+                .join(", ")
+        );
+
+    }
+
+
+    return (
+        note.content.trim() ||
+        "No additional text"
+    );
+
+}
+
 
 
 function renderNotesList() {
@@ -670,7 +1240,10 @@ function renderNotesList() {
     const visibleNotes =
         getVisibleNotes();
 
-    notesList.innerHTML = "";
+
+    notesList.innerHTML =
+        "";
+
 
     visibleCount.textContent =
         pluralize(
@@ -679,362 +1252,484 @@ function renderNotesList() {
         );
 
 
-    if (visibleNotes.length === 0) {
-        emptyState.classList.remove("hidden");
+    if (
+        visibleNotes.length ===
+        0
+    ) {
+
+        emptyState
+            .classList
+            .remove(
+                "hidden"
+            );
 
         configureEmptyState();
 
         return;
+
     }
 
-    emptyState.classList.add("hidden");
+
+    emptyState
+        .classList
+        .add(
+            "hidden"
+        );
 
 
-    visibleNotes.forEach((note) => {
 
-        const card =
-            document.createElement("article");
+    visibleNotes.forEach(
+        note => {
 
-        card.className = "note-card";
-
-        card.dataset.id = note.id;
-        card.dataset.color = note.color;
-
-        if (
-            note.id === selectedNoteId
-        ) {
-            card.classList.add("active");
-        }
+            const card =
+                document.createElement(
+                    "article"
+                );
 
 
-        /* Top row */
-
-        const top =
-            document.createElement("div");
-
-        top.className =
-            "note-card-top";
+            card.className =
+                "note-card";
 
 
-        const title =
-            document.createElement("div");
+            if (
+                note.id ===
+                selectedNoteId
+            ) {
 
-        title.className =
-            "note-card-title";
+                card.classList.add(
+                    "active"
+                );
 
-        title.textContent =
-            note.title.trim() ||
-            "Untitled Note";
-
-
-        const icons =
-            document.createElement("div");
-
-        icons.className =
-            "note-card-icons";
-
-
-        /* Pin */
-
-        const pin =
-            document.createElement("button");
-
-        pin.className =
-            "note-card-action pin";
-
-        pin.title = note.isPinned
-            ? "Unpin"
-            : "Pin";
-
-        pin.textContent = "♧";
-
-        if (note.isPinned) {
-            pin.classList.add("active");
-        }
-
-        pin.addEventListener(
-            "click",
-            (event) => {
-                event.stopPropagation();
-
-                note.isPinned =
-                    !note.isPinned;
-
-                note.updatedAt =
-                    Date.now();
-
-                saveNotes();
-                render();
             }
-        );
 
 
-        /* Favorite */
 
-        const favorite =
-            document.createElement("button");
+            const top =
+                document.createElement(
+                    "div"
+                );
 
-        favorite.className =
-            "note-card-action favorite";
+            top.className =
+                "note-card-top";
 
-        favorite.title =
-            note.isFavorite
-                ? "Remove favorite"
-                : "Favorite";
 
-        favorite.textContent =
-            note.isFavorite
-                ? "★"
-                : "☆";
 
-        if (note.isFavorite) {
-            favorite.classList.add(
-                "active"
-            );
-        }
+            const title =
+                document.createElement(
+                    "div"
+                );
 
-        favorite.addEventListener(
-            "click",
-            (event) => {
-                event.stopPropagation();
+            title.className =
+                "note-card-title";
 
-                note.isFavorite =
-                    !note.isFavorite;
 
-                note.updatedAt =
-                    Date.now();
+            title.textContent =
+                (
+                    note.type ===
+                    "todo"
+                        ? "☑ "
+                        : ""
+                ) +
+                (
+                    note.title.trim() ||
+                    "Untitled Note"
+                );
 
-                saveNotes();
-                render();
+
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+            actions.className =
+                "note-card-icons";
+
+
+
+            const pin =
+                document.createElement(
+                    "button"
+                );
+
+            pin.className =
+                "note-card-action";
+
+
+            if (
+                note.isPinned
+            ) {
+
+                pin.classList.add(
+                    "active"
+                );
+
             }
-        );
 
 
-        icons.append(
-            pin,
-            favorite
-        );
-
-        top.append(
-            title,
-            icons
-        );
+            pin.textContent =
+                "♧";
 
 
-        /* Preview */
+            pin.onclick =
+                event => {
 
-        const preview =
-            document.createElement("div");
+                    event.stopPropagation();
 
-        preview.className =
-            "note-card-preview";
+                    note.isPinned =
+                        !note.isPinned;
 
-        preview.textContent =
-            note.content.trim() ||
-            "No additional text";
+                    note.updatedAt =
+                        Date.now();
 
+                    saveNotes();
 
-        /* Bottom meta */
+                    render();
 
-        const meta =
-            document.createElement("div");
-
-        meta.className =
-            "note-card-meta";
+                };
 
 
-        const tags =
-            document.createElement("div");
 
-        tags.className =
-            "note-card-tags";
+            const favorite =
+                document.createElement(
+                    "button"
+                );
 
-        note.tags
-            .slice(0, 2)
-            .forEach((tagText) => {
-
-                const tag =
-                    document.createElement("span");
-
-                tag.className =
-                    "note-tag";
-
-                tag.textContent =
-                    `#${tagText}`;
-
-                tags.appendChild(tag);
-            });
+            favorite.className =
+                "note-card-action favorite";
 
 
-        const time =
-            document.createElement("span");
+            if (
+                note.isFavorite
+            ) {
 
-        time.textContent =
-            formatShortDate(
-                currentView === "trash"
-                    ? note.deletedAt ||
-                      note.updatedAt
-                    : note.updatedAt
+                favorite.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            favorite.textContent =
+                note.isFavorite
+                    ? "★"
+                    : "☆";
+
+
+            favorite.onclick =
+                event => {
+
+                    event.stopPropagation();
+
+                    note.isFavorite =
+                        !note.isFavorite;
+
+                    note.updatedAt =
+                        Date.now();
+
+                    saveNotes();
+
+                    render();
+
+                };
+
+
+
+            actions.append(
+                pin,
+                favorite
             );
 
 
-        meta.append(
-            tags,
-            time
-        );
+            top.append(
+                title,
+                actions
+            );
 
 
-        card.append(
-            top,
-            preview,
-            meta
-        );
+
+            const preview =
+                document.createElement(
+                    "div"
+                );
+
+            preview.className =
+                "note-card-preview";
+
+            preview.textContent =
+                getNotePreview(
+                    note
+                );
 
 
-        card.addEventListener(
-            "click",
-            () => {
-                selectNote(note.id);
-            }
-        );
+
+            const meta =
+                document.createElement(
+                    "div"
+                );
+
+            meta.className =
+                "note-card-meta";
 
 
-        notesList.appendChild(card);
-    });
+
+            const tags =
+                document.createElement(
+                    "div"
+                );
+
+            tags.className =
+                "note-card-tags";
+
+
+
+            note.tags
+                .slice(0, 2)
+                .forEach(
+                    tagText => {
+
+                        const tag =
+                            document
+                                .createElement(
+                                    "span"
+                                );
+
+
+                        tag.className =
+                            "note-tag";
+
+
+                        tag.textContent =
+                            `#${tagText}`;
+
+
+                        tags.appendChild(
+                            tag
+                        );
+
+                    }
+                );
+
+
+
+            const date =
+                document.createElement(
+                    "span"
+                );
+
+            date.textContent =
+                formatShortDate(
+                    note.updatedAt
+                );
+
+
+            meta.append(
+                tags,
+                date
+            );
+
+
+            card.append(
+                top,
+                preview,
+                meta
+            );
+
+
+            card.onclick =
+                () => {
+
+                    selectNote(
+                        note.id
+                    );
+
+                };
+
+
+            notesList.appendChild(
+                card
+            );
+
+        }
+    );
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    EMPTY STATE
-========================================================= */
+========================================== */
 
 function configureEmptyState() {
 
-    const query =
-        searchInput.value.trim();
+    if (
+        searchInput.value.trim()
+    ) {
 
-    if (query) {
         emptyTitle.textContent =
             "No matching notes";
 
         emptyDescription.textContent =
-            "Try a different search term.";
+            "Try another search.";
 
-        emptyNewNoteBtn.classList.add(
-            "hidden"
-        );
-
-        return;
-    }
-
-
-    emptyNewNoteBtn.classList.remove(
-        "hidden"
-    );
-
-
-    switch (currentView) {
-
-        case "favorites":
-            emptyTitle.textContent =
-                "No favorites";
-
-            emptyDescription.textContent =
-                "Favorite a note to keep it easy to find.";
-
-            break;
-
-
-        case "archive":
-            emptyTitle.textContent =
-                "Archive is empty";
-
-            emptyDescription.textContent =
-                "Archived notes will appear here.";
-
-            break;
-
-
-        case "trash":
-            emptyTitle.textContent =
-                "Trash is empty";
-
-            emptyDescription.textContent =
-                "Deleted notes will appear here.";
-
-            emptyNewNoteBtn.classList.add(
+        emptyNewNoteBtn
+            .classList
+            .add(
                 "hidden"
             );
 
-            break;
+        return;
 
-
-        default:
-            emptyTitle.textContent =
-                "No notes yet";
-
-            emptyDescription.textContent =
-                "Create a note to start writing.";
     }
+
+
+    emptyNewNoteBtn
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+    if (
+        currentView ===
+        "favorites"
+    ) {
+
+        emptyTitle.textContent =
+            "No favorites";
+
+        emptyDescription.textContent =
+            "Favorite notes will appear here.";
+
+    } else if (
+        currentView ===
+        "archive"
+    ) {
+
+        emptyTitle.textContent =
+            "Archive is empty";
+
+        emptyDescription.textContent =
+            "Archived notes will appear here.";
+
+    } else if (
+        currentView ===
+        "trash"
+    ) {
+
+        emptyTitle.textContent =
+            "Trash is empty";
+
+        emptyDescription.textContent =
+            "Deleted notes will appear here.";
+
+        emptyNewNoteBtn
+            .classList
+            .add(
+                "hidden"
+            );
+
+    } else {
+
+        emptyTitle.textContent =
+            "No notes yet";
+
+        emptyDescription.textContent =
+            "Create a note to start writing.";
+
+    }
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    SELECT NOTE
-========================================================= */
+========================================== */
 
 function selectNote(id) {
 
     flushCurrentNote();
 
-    selectedNoteId = id;
+
+    selectedNoteId =
+        id;
+
 
     render();
 
     openEditorOnMobile();
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    EDITOR
-========================================================= */
+========================================== */
 
 function renderEditor() {
 
     const note =
         getSelectedNote();
 
+
     if (!note) {
 
-        editorContainer.classList.add(
-            "hidden"
-        );
+        editorContainer
+            .classList
+            .add(
+                "hidden"
+            );
 
-        noNoteSelected.classList.remove(
-            "hidden"
-        );
+
+        noNoteSelected
+            .classList
+            .remove(
+                "hidden"
+            );
+
 
         return;
+
     }
 
 
-    noNoteSelected.classList.add(
-        "hidden"
-    );
+    noNoteSelected
+        .classList
+        .add(
+            "hidden"
+        );
 
-    editorContainer.classList.remove(
-        "hidden"
-    );
+
+    editorContainer
+        .classList
+        .remove(
+            "hidden"
+        );
+
 
 
     noteTitle.value =
         note.title;
 
+
     noteContent.value =
         note.content;
 
+
     tagsInput.value =
         note.tags.join(", ");
+
+
+    noteTypeSelect.value =
+        note.type;
+
+
+    colorSelect.value =
+        note.color;
+
 
 
     createdDate.textContent =
@@ -1042,10 +1737,12 @@ function renderEditor() {
             note.createdAt
         )}`;
 
+
     updatedDate.textContent =
         `Updated ${formatDate(
             note.updatedAt
         )}`;
+
 
 
     favoriteBtn.textContent =
@@ -1053,25 +1750,58 @@ function renderEditor() {
             ? "★"
             : "☆";
 
-    favoriteBtn.classList.toggle(
-        "favorite-active",
-        note.isFavorite
-    );
+
+    favoriteBtn
+        .classList
+        .toggle(
+            "favorite-active",
+            note.isFavorite
+        );
 
 
-    pinBtn.classList.toggle(
-        "active",
-        note.isPinned
-    );
+    pinBtn
+        .classList
+        .toggle(
+            "active",
+            note.isPinned
+        );
 
 
-    colorSelect.value =
-        note.color;
+
+    const disabled =
+        note.isTrashed;
 
 
-    if (note.isTrashed) {
+    noteTitle.disabled =
+        disabled;
 
-        archiveBtn.textContent = "↶";
+    noteContent.disabled =
+        disabled;
+
+    tagsInput.disabled =
+        disabled;
+
+    noteTypeSelect.disabled =
+        disabled;
+
+    colorSelect.disabled =
+        disabled;
+
+    todoInput.disabled =
+        disabled;
+
+    addTodoBtn.disabled =
+        disabled;
+
+
+
+    if (
+        note.isTrashed
+    ) {
+
+        archiveBtn.textContent =
+            "↶";
+
         archiveBtn.title =
             "Restore note";
 
@@ -1085,124 +1815,174 @@ function renderEditor() {
                 ? "↶"
                 : "▣";
 
+
         archiveBtn.title =
             note.isArchived
-                ? "Unarchive note"
-                : "Archive note";
+                ? "Unarchive"
+                : "Archive";
+
 
         deleteBtn.title =
             "Move to Trash";
+
     }
 
 
-    noteTitle.disabled =
-        note.isTrashed;
 
-    noteContent.disabled =
-        note.isTrashed;
+    renderNoteType();
 
-    tagsInput.disabled =
-        note.isTrashed;
+    updateStatistics();
 
-    colorSelect.disabled =
-        note.isTrashed;
-
-
-    updateTextStatistics();
 }
 
 
-/* =========================================================
-   AUTOSAVE
-========================================================= */
 
-function queueSave() {
+/* ==========================================
+   NOTE / TODO TYPE
+========================================== */
+
+function renderNoteType() {
 
     const note =
         getSelectedNote();
+
+
+    if (!note) {
+        return;
+    }
+
+
+    if (
+        note.type ===
+        "todo"
+    ) {
+
+        noteContent
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        todoContainer
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        wordCount
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        charCount
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        lineCount
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        taskCount
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        findBtn.disabled =
+            true;
+
+
+        closeFindPanel();
+
+        renderTodoList();
+
+    } else {
+
+        noteContent
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        todoContainer
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        wordCount
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        charCount
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        lineCount
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        taskCount
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        findBtn.disabled =
+            false;
+
+    }
+
+}
+
+
+
+/* ==========================================
+   SWITCH NOTE TYPE
+========================================== */
+
+function changeNoteType() {
+
+    const note =
+        getSelectedNote();
+
 
     if (
         !note ||
         note.isTrashed
     ) {
+
         return;
+
     }
 
 
-    saveStatus.textContent =
-        "Saving...";
+    note.type =
+        noteTypeSelect.value;
 
-    saveStatus.classList.add(
-        "saving"
-    );
-
-
-    clearTimeout(saveTimer);
-
-    saveTimer = setTimeout(
-        () => {
-            flushCurrentNote();
-        },
-        450
-    );
-}
-
-
-function flushCurrentNote() {
-
-    clearTimeout(saveTimer);
-
-    const note =
-        getSelectedNote();
-
-    if (
-        !note ||
-        note.isTrashed
-    ) {
-        return;
-    }
-
-
-    const newTitle =
-        noteTitle.value;
-
-    const newContent =
-        noteContent.value;
-
-    const newTags =
-        normalizeTags(
-            tagsInput.value
-        );
-
-
-    const changed =
-        note.title !== newTitle ||
-        note.content !== newContent ||
-        JSON.stringify(note.tags) !==
-        JSON.stringify(newTags);
-
-
-    if (!changed) {
-
-        saveStatus.textContent =
-            "Saved";
-
-        saveStatus.classList.remove(
-            "saving"
-        );
-
-        return;
-    }
-
-
-    note.title =
-        newTitle;
-
-    note.content =
-        newContent;
-
-    note.tags =
-        newTags;
 
     note.updatedAt =
         Date.now();
@@ -1210,13 +1990,87 @@ function flushCurrentNote() {
 
     saveNotes();
 
+    renderEditor();
 
-    saveStatus.textContent =
-        "Saved";
+    renderNotesList();
 
-    saveStatus.classList.remove(
-        "saving"
-    );
+
+    if (
+        note.type ===
+        "todo"
+    ) {
+
+        todoInput.focus();
+
+    } else {
+
+        noteContent.focus();
+
+    }
+
+}
+
+
+
+/* ==========================================
+   TO-DO FUNCTIONS
+========================================== */
+
+function addTodo() {
+
+    const note =
+        getSelectedNote();
+
+
+    if (
+        !note ||
+        note.type !==
+        "todo" ||
+        note.isTrashed
+    ) {
+
+        return;
+
+    }
+
+
+    const text =
+        todoInput.value.trim();
+
+
+    if (!text) {
+        return;
+    }
+
+
+    note.tasks.push({
+
+        id:
+            generateId(),
+
+        text,
+
+        done:
+            false
+
+    });
+
+
+    todoInput.value =
+        "";
+
+
+    note.updatedAt =
+        Date.now();
+
+
+    saveNotes();
+
+    renderTodoList();
+
+    renderNotesList();
+
+    updateStatistics();
 
 
     updatedDate.textContent =
@@ -1224,39 +2078,500 @@ function flushCurrentNote() {
             note.updatedAt
         )}`;
 
-
-    renderNotesList();
-    updateCounts();
 }
 
 
-/* =========================================================
-   TEXT STATS
-========================================================= */
 
-function updateTextStatistics() {
+function toggleTodo(taskId) {
+
+    const note =
+        getSelectedNote();
+
+
+    if (!note) {
+        return;
+    }
+
+
+    const task =
+        note.tasks.find(
+            task =>
+                task.id ===
+                taskId
+        );
+
+
+    if (!task) {
+        return;
+    }
+
+
+    task.done =
+        !task.done;
+
+
+    note.updatedAt =
+        Date.now();
+
+
+    saveNotes();
+
+    renderTodoList();
+
+    renderNotesList();
+
+    updateStatistics();
+
+}
+
+
+
+function deleteTodo(taskId) {
+
+    const note =
+        getSelectedNote();
+
+
+    if (!note) {
+        return;
+    }
+
+
+    note.tasks =
+        note.tasks.filter(
+            task =>
+                task.id !==
+                taskId
+        );
+
+
+    note.updatedAt =
+        Date.now();
+
+
+    saveNotes();
+
+    renderTodoList();
+
+    renderNotesList();
+
+    updateStatistics();
+
+}
+
+
+
+function clearCompletedTodos() {
+
+    const note =
+        getSelectedNote();
+
+
+    if (!note) {
+        return;
+    }
+
+
+    note.tasks =
+        note.tasks.filter(
+            task =>
+                !task.done
+        );
+
+
+    note.updatedAt =
+        Date.now();
+
+
+    saveNotes();
+
+    renderTodoList();
+
+    renderNotesList();
+
+    updateStatistics();
+
+}
+
+
+
+function renderTodoList() {
+
+    const note =
+        getSelectedNote();
+
+
+    todoList.innerHTML =
+        "";
+
+
+    if (
+        !note ||
+        note.type !==
+        "todo"
+    ) {
+
+        return;
+
+    }
+
+
+
+    if (
+        note.tasks.length ===
+        0
+    ) {
+
+        const message =
+            document.createElement(
+                "p"
+            );
+
+
+        message.textContent =
+            "No tasks yet.";
+
+
+        todoList.appendChild(
+            message
+        );
+
+    }
+
+
+
+    note.tasks.forEach(
+        task => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "todo-item";
+
+
+            if (
+                task.done
+            ) {
+
+                item.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+
+            const checkbox =
+                document.createElement(
+                    "input"
+                );
+
+
+            checkbox.type =
+                "checkbox";
+
+
+            checkbox.checked =
+                task.done;
+
+
+            checkbox.disabled =
+                note.isTrashed;
+
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    toggleTodo(
+                        task.id
+                    );
+
+                }
+            );
+
+
+
+            const text =
+                document.createElement(
+                    "span"
+                );
+
+
+            text.className =
+                "todo-item-text";
+
+
+            text.textContent =
+                task.text;
+
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.className =
+                "todo-delete-btn";
+
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            deleteButton.disabled =
+                note.isTrashed;
+
+
+            deleteButton.addEventListener(
+                "click",
+                () => {
+
+                    deleteTodo(
+                        task.id
+                    );
+
+                }
+            );
+
+
+
+            item.append(
+                checkbox,
+                text,
+                deleteButton
+            );
+
+
+            todoList.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+
+    const completed =
+        note.tasks.filter(
+            task =>
+                task.done
+        ).length;
+
+
+    clearCompletedBtn.disabled =
+        (
+            completed === 0 ||
+            note.isTrashed
+        );
+
+}
+
+
+
+/* ==========================================
+   SAVE NORMAL NOTE
+========================================== */
+
+function queueSave() {
+
+    const note =
+        getSelectedNote();
+
+
+    if (
+        !note ||
+        note.isTrashed
+    ) {
+
+        return;
+
+    }
+
+
+    saveStatus.textContent =
+        "Saving...";
+
+
+    clearTimeout(
+        saveTimer
+    );
+
+
+    saveTimer =
+        setTimeout(
+            flushCurrentNote,
+            400
+        );
+
+}
+
+
+
+function flushCurrentNote() {
+
+    clearTimeout(
+        saveTimer
+    );
+
+
+    const note =
+        getSelectedNote();
+
+
+    if (
+        !note ||
+        note.isTrashed
+    ) {
+
+        return;
+
+    }
+
+
+    const title =
+        noteTitle.value;
+
+
+    const tags =
+        normalizeTags(
+            tagsInput.value
+        );
+
 
     const content =
         noteContent.value;
 
+
+
+    const changed =
+        note.title !== title
+        ||
+        note.content !== content
+        ||
+        JSON.stringify(
+            note.tags
+        ) !==
+        JSON.stringify(
+            tags
+        );
+
+
+
+    if (changed) {
+
+        note.title =
+            title;
+
+
+        note.content =
+            content;
+
+
+        note.tags =
+            tags;
+
+
+        note.updatedAt =
+            Date.now();
+
+
+        saveNotes();
+
+    }
+
+
+    saveStatus.textContent =
+        "Saved";
+
+
+    if (changed) {
+
+        updatedDate.textContent =
+            `Updated ${formatDate(
+                note.updatedAt
+            )}`;
+
+
+        renderNotesList();
+
+        updateCounts();
+
+    }
+
+}
+
+
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+function updateStatistics() {
+
+    const note =
+        getSelectedNote();
+
+
+    if (!note) {
+        return;
+    }
+
+
+    if (
+        note.type ===
+        "todo"
+    ) {
+
+        const completed =
+            note.tasks.filter(
+                task =>
+                    task.done
+            ).length;
+
+
+        taskCount.textContent =
+            `${completed}/${note.tasks.length} completed`;
+
+
+        return;
+
+    }
+
+
+    const content =
+        noteContent.value;
+
+
     const trimmed =
         content.trim();
+
 
     const words =
         trimmed
             ? trimmed
                 .split(/\s+/)
-                .filter(Boolean)
                 .length
             : 0;
+
 
     const characters =
         content.length;
 
+
     const lines =
-        content.length
-            ? content.split(/\n/).length
+        content
+            ? content
+                .split("\n")
+                .length
             : 1;
+
 
 
     wordCount.textContent =
@@ -1265,237 +2580,291 @@ function updateTextStatistics() {
             "word"
         );
 
+
     charCount.textContent =
         pluralize(
             characters,
             "character"
         );
 
+
     lineCount.textContent =
         pluralize(
             lines,
             "line"
         );
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    COUNTS
-========================================================= */
+========================================== */
 
 function updateCounts() {
 
     allCount.textContent =
         notes.filter(
-            (note) =>
+            note =>
                 !note.isArchived &&
                 !note.isTrashed
         ).length;
 
+
     favoriteCount.textContent =
         notes.filter(
-            (note) =>
+            note =>
                 note.isFavorite &&
                 !note.isArchived &&
                 !note.isTrashed
         ).length;
 
+
     archiveCount.textContent =
         notes.filter(
-            (note) =>
+            note =>
                 note.isArchived &&
                 !note.isTrashed
         ).length;
 
+
     trashCount.textContent =
         notes.filter(
-            (note) =>
+            note =>
                 note.isTrashed
         ).length;
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    NAVIGATION
-========================================================= */
+========================================== */
 
 function updateNavigation() {
 
-    $$(".nav-item").forEach(
-        (button) => {
+    $$(".nav-item")
+        .forEach(
+            button => {
 
-            button.classList.toggle(
-                "active",
-                button.dataset.view ===
-                currentView
-            );
+                button.classList
+                    .toggle(
+                        "active",
+                        button.dataset
+                            .view ===
+                            currentView
+                    );
 
-        }
-    );
+            }
+        );
 
 
     const titles = {
-        all: "All Notes",
-        favorites: "Favorites",
-        archive: "Archive",
-        trash: "Trash"
+
+        all:
+            "All Notes",
+
+        favorites:
+            "Favorites",
+
+        archive:
+            "Archive",
+
+        trash:
+            "Trash"
+
     };
 
+
     viewTitle.textContent =
-        titles[currentView] ||
-        "Notes";
+        titles[
+            currentView
+        ];
+
 }
+
 
 
 function changeView(view) {
 
     flushCurrentNote();
 
-    currentView = view;
 
-    const current =
-        getSelectedNote();
+    currentView =
+        view;
 
-    if (current) {
 
-        const matchesView =
-            getVisibleNotes().some(
-                (note) =>
-                    note.id ===
-                    current.id
-            );
+    const visible =
+        getVisibleNotes();
 
-        if (!matchesView) {
-            selectedNoteId = null;
-        }
+
+    if (
+        !visible.some(
+            note =>
+                note.id ===
+                selectedNoteId
+        )
+    ) {
+
+        selectedNoteId =
+            null;
 
     }
+
 
     closeSidebar();
 
     render();
+
 }
 
 
-/* =========================================================
-   FAVORITE
-========================================================= */
+
+/* ==========================================
+   FAVORITE / PIN
+========================================== */
 
 function toggleFavorite() {
 
     const note =
         getSelectedNote();
 
-    if (!note) return;
+
+    if (!note) {
+        return;
+    }
+
 
     note.isFavorite =
         !note.isFavorite;
 
+
     note.updatedAt =
         Date.now();
+
 
     saveNotes();
 
     render();
+
 }
 
 
-/* =========================================================
-   PIN
-========================================================= */
 
 function togglePin() {
 
     const note =
         getSelectedNote();
 
-    if (
-        !note ||
-        note.isTrashed
-    ) {
+
+    if (!note) {
         return;
     }
+
 
     note.isPinned =
         !note.isPinned;
 
+
     note.updatedAt =
         Date.now();
+
 
     saveNotes();
 
     render();
+
 }
 
 
-/* =========================================================
-   ARCHIVE / RESTORE
-========================================================= */
+
+/* ==========================================
+   ARCHIVE
+========================================== */
 
 function archiveOrRestore() {
 
     const note =
         getSelectedNote();
 
-    if (!note) return;
 
-
-    if (note.isTrashed) {
-
-        note.isTrashed = false;
-        note.isArchived = false;
-        note.deletedAt = null;
-
-        note.updatedAt =
-            Date.now();
-
-        currentView = "all";
-
-        saveNotes();
-
-        render();
-
+    if (!note) {
         return;
     }
 
 
-    note.isArchived =
-        !note.isArchived;
+
+    if (
+        note.isTrashed
+    ) {
+
+        note.isTrashed =
+            false;
+
+
+        note.isArchived =
+            false;
+
+
+        note.deletedAt =
+            null;
+
+
+        currentView =
+            "all";
+
+    } else {
+
+        note.isArchived =
+            !note.isArchived;
+
+    }
+
 
     note.updatedAt =
         Date.now();
 
+
     saveNotes();
 
-    selectedNoteId = null;
+
+    selectedNoteId =
+        null;
+
 
     render();
+
 }
 
 
-/* =========================================================
-   DELETE / TRASH
-========================================================= */
+
+/* ==========================================
+   DELETE
+========================================== */
 
 function deleteSelectedNote() {
 
     const note =
         getSelectedNote();
 
-    if (!note) return;
+
+    if (!note) {
+        return;
+    }
 
 
-    /* Permanent delete */
 
-    if (note.isTrashed) {
+    if (
+        note.isTrashed
+    ) {
 
         const confirmed =
-            window.confirm(
-                `Permanently delete "${
-                    note.title ||
-                    "Untitled Note"
-                }"?\n\nThis action cannot be undone.`
+            confirm(
+                "Permanently delete this note?"
             );
+
 
         if (!confirmed) {
             return;
@@ -1504,253 +2873,323 @@ function deleteSelectedNote() {
 
         notes =
             notes.filter(
-                (item) =>
+                item =>
                     item.id !==
                     note.id
             );
 
-        selectedNoteId = null;
+    } else {
 
-        saveNotes();
+        note.isTrashed =
+            true;
 
-        render();
 
-        closeEditorOnMobile();
+        note.isArchived =
+            false;
 
-        return;
+
+        note.deletedAt =
+            Date.now();
+
+
+        note.updatedAt =
+            Date.now();
+
     }
 
 
-    /* Move to trash */
+    selectedNoteId =
+        null;
 
-    note.isTrashed = true;
-    note.isArchived = false;
-
-    note.deletedAt =
-        Date.now();
-
-    note.updatedAt =
-        Date.now();
-
-    selectedNoteId = null;
 
     saveNotes();
 
     render();
 
     closeEditorOnMobile();
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    DUPLICATE
-========================================================= */
+========================================== */
 
 function duplicateSelectedNote() {
 
     flushCurrentNote();
 
+
     const source =
         getSelectedNote();
 
-    if (
-        !source ||
-        source.isTrashed
-    ) {
+
+    if (!source) {
         return;
     }
 
 
-    const now = Date.now();
-
-    const duplicate = {
-        ...source,
-
-        id: generateId(),
-
-        title:
-            `${source.title || "Untitled Note"} Copy`,
-
-        isPinned: false,
-        isArchived: false,
-        isTrashed: false,
-        deletedAt: null,
-
-        createdAt: now,
-        updatedAt: now
-    };
+    const now =
+        Date.now();
 
 
-    duplicate.tags =
-        [...source.tags];
+    const duplicate =
+        JSON.parse(
+            JSON.stringify(
+                source
+            )
+        );
+
+
+    duplicate.id =
+        generateId();
+
+
+    duplicate.title =
+        `${
+            source.title ||
+            "Untitled Note"
+        } Copy`;
+
+
+    duplicate.tasks =
+        source.tasks.map(
+            task => ({
+
+                ...task,
+
+                id:
+                    generateId()
+
+            })
+        );
+
+
+    duplicate.isPinned =
+        false;
+
+
+    duplicate.isArchived =
+        false;
+
+
+    duplicate.isTrashed =
+        false;
+
+
+    duplicate.deletedAt =
+        null;
+
+
+    duplicate.createdAt =
+        now;
+
+
+    duplicate.updatedAt =
+        now;
 
 
     notes.unshift(
         duplicate
     );
 
-    currentView = "all";
+
     selectedNoteId =
         duplicate.id;
+
+
+    currentView =
+        "all";
+
 
     saveNotes();
 
     render();
 
-    noteTitle.focus();
 }
 
 
-/* =========================================================
-   COPY NOTE
-========================================================= */
+
+/* ==========================================
+   COPY
+========================================== */
 
 async function copySelectedNote() {
 
     flushCurrentNote();
 
+
     const note =
         getSelectedNote();
 
-    if (!note) return;
+
+    if (!note) {
+        return;
+    }
 
 
-    const text =
-        [
-            note.title || "Untitled Note",
-            "",
-            note.content
-        ].join("\n");
+    let text =
+        `${note.title || "Untitled Note"}\n\n`;
+
+
+    if (
+        note.type ===
+        "todo"
+    ) {
+
+        text +=
+            note.tasks
+                .map(
+                    task =>
+                        `${task.done ? "[x]" : "[ ]"} ${task.text}`
+                )
+                .join("\n");
+
+    } else {
+
+        text +=
+            note.content;
+
+    }
 
 
     try {
 
-        await navigator.clipboard.writeText(
-            text
-        );
+        await navigator
+            .clipboard
+            .writeText(
+                text
+            );
 
-        temporaryButtonText(
-            copyBtn,
-            "✓",
-            1000
+
+        copyBtn.textContent =
+            "✓";
+
+
+        setTimeout(
+            () => {
+
+                copyBtn.textContent =
+                    "⧉";
+
+            },
+            800
         );
 
     } catch {
 
-        /* Fallback */
-
-        const textarea =
-            document.createElement(
-                "textarea"
-            );
-
-        textarea.value = text;
-
-        document.body.appendChild(
-            textarea
+        alert(
+            "Could not copy note."
         );
 
-        textarea.select();
-
-        document.execCommand(
-            "copy"
-        );
-
-        textarea.remove();
-
-        temporaryButtonText(
-            copyBtn,
-            "✓",
-            1000
-        );
     }
+
 }
 
 
-function temporaryButtonText(
-    element,
-    value,
-    delay
-) {
 
-    const original =
-        element.textContent;
-
-    element.textContent =
-        value;
-
-    setTimeout(() => {
-        element.textContent =
-            original;
-    }, delay);
-}
-
-
-/* =========================================================
-   EXPORT CURRENT NOTE
-========================================================= */
+/* ==========================================
+   EXPORT
+========================================== */
 
 function exportSelectedNote() {
 
     flushCurrentNote();
 
+
     const note =
         getSelectedNote();
 
-    if (!note) return;
+
+    if (!note) {
+        return;
+    }
 
 
-    const contents =
-`${note.title || "Untitled Note"}
+    let body =
+        `${note.title || "Untitled Note"}\n\n`;
 
-${note.content}
 
-${note.tags.length
-    ? `Tags: ${note.tags.join(", ")}`
-    : ""}`;
+    if (
+        note.type ===
+        "todo"
+    ) {
+
+        body +=
+            note.tasks
+                .map(
+                    task =>
+                        `${task.done ? "[x]" : "[ ]"} ${task.text}`
+                )
+                .join("\n");
+
+    } else {
+
+        body +=
+            note.content;
+
+    }
+
+
+    if (
+        note.tags.length
+    ) {
+
+        body +=
+            `\n\nTags: ${
+                note.tags.join(", ")
+            }`;
+
+    }
 
 
     downloadFile(
-        `${escapeFileName(
+
+        `${safeFilename(
             note.title ||
             "Untitled Note"
         )}.txt`,
 
-        contents.trimEnd(),
+        body,
 
-        "text/plain;charset=utf-8"
+        "text/plain"
+
     );
+
 }
 
 
-/* =========================================================
-   BACKUP ALL NOTES
-========================================================= */
+
+/* ==========================================
+   BACKUP
+========================================== */
 
 function backupAllNotes() {
 
     flushCurrentNote();
 
-    const backup = {
-        app: "NoteSpace",
 
-        version: 1,
+    const backup = {
+
+        app:
+            "NoteSpace",
+
+        version:
+            2,
 
         exportedAt:
-            new Date().toISOString(),
+            new Date()
+                .toISOString(),
 
         notes
+
     };
 
 
-    const date =
-        new Date()
-            .toISOString()
-            .slice(0, 10);
-
-
     downloadFile(
-        `notespace-backup-${date}.json`,
+
+        "notespace-backup.json",
 
         JSON.stringify(
             backup,
@@ -1759,224 +3198,286 @@ function backupAllNotes() {
         ),
 
         "application/json"
+
     );
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    IMPORT
-========================================================= */
+========================================== */
 
 function importFile(file) {
 
-    if (!file) return;
+    if (!file) {
+        return;
+    }
 
 
     const reader =
         new FileReader();
 
 
-    reader.onload = () => {
 
-        const text =
-            String(reader.result || "");
+    reader.onload =
+        () => {
 
-
-        /* JSON */
-
-        if (
-            file.name
-                .toLowerCase()
-                .endsWith(".json")
-        ) {
-
-            try {
-
-                const parsed =
-                    JSON.parse(text);
-
-                let importedNotes;
-
-
-                if (
-                    Array.isArray(parsed)
-                ) {
-                    importedNotes =
-                        parsed;
-
-                } else if (
-                    parsed &&
-                    Array.isArray(
-                        parsed.notes
-                    )
-                ) {
-                    importedNotes =
-                        parsed.notes;
-
-                } else {
-                    throw new Error(
-                        "No valid notes array found."
-                    );
-                }
-
-
-                const normalized =
-                    importedNotes.map(
-                        (note) => {
-
-                            const imported =
-                                normalizeImportedNote(
-                                    note
-                                );
-
-                            /*
-                             Prevent ID collisions.
-                            */
-
-                            if (
-                                notes.some(
-                                    (existing) =>
-                                        existing.id ===
-                                        imported.id
-                                )
-                            ) {
-                                imported.id =
-                                    generateId();
-                            }
-
-                            return imported;
-                        }
-                    );
-
-
-                notes = [
-                    ...normalized,
-                    ...notes
-                ];
-
-                saveNotes();
-
-                currentView =
-                    "all";
-
-                selectedNoteId =
-                    normalized[0]?.id ||
-                    selectedNoteId;
-
-                render();
-
-
-                window.alert(
-                    `${normalized.length} note(s) imported successfully.`
-                );
-
-            } catch (error) {
-
-                window.alert(
-                    "The selected JSON file is not a valid NoteSpace backup."
-                );
-
-                console.error(
-                    error
-                );
-            }
-
-            return;
-        }
-
-
-        /* TXT */
-
-        const now =
-            Date.now();
-
-        const fileName =
-            file.name
-                .replace(
-                    /\.txt$/i,
+            const text =
+                String(
+                    reader.result ||
                     ""
                 );
 
 
-        const note = {
-            id: generateId(),
+            if (
+                file.name
+                    .toLowerCase()
+                    .endsWith(
+                        ".json"
+                    )
+            ) {
 
-            title:
-                fileName ||
-                "Imported Note",
+                try {
 
-            content: text,
+                    const data =
+                        JSON.parse(
+                            text
+                        );
 
-            tags: [
-                "imported"
-            ],
 
-            isFavorite: false,
-            isPinned: false,
-            isArchived: false,
-            isTrashed: false,
+                    const imported =
+                        Array.isArray(
+                            data
+                        )
+                            ? data
+                            : data.notes;
 
-            deletedAt: null,
 
-            color: "default",
+                    if (
+                        !Array.isArray(
+                            imported
+                        )
+                    ) {
 
-            createdAt: now,
-            updatedAt: now
+                        throw new Error(
+                            "Invalid backup"
+                        );
+
+                    }
+
+
+                    const normalized =
+                        imported.map(
+                            item => {
+
+                                const note =
+                                    normalizeNote(
+                                        item
+                                    );
+
+
+                                note.id =
+                                    generateId();
+
+
+                                note.tasks =
+                                    note.tasks.map(
+                                        task => ({
+
+                                            ...task,
+
+                                            id:
+                                                generateId()
+
+                                        })
+                                    );
+
+
+                                return note;
+
+                            }
+                        );
+
+
+                    notes = [
+
+                        ...normalized,
+
+                        ...notes
+
+                    ];
+
+
+                    saveNotes();
+
+
+                    currentView =
+                        "all";
+
+
+                    selectedNoteId =
+                        normalized[0]
+                            ?.id ||
+                        selectedNoteId;
+
+
+                    render();
+
+
+                    alert(
+                        `${normalized.length} note(s) imported.`
+                    );
+
+                } catch {
+
+                    alert(
+                        "Invalid JSON backup."
+                    );
+
+                }
+
+
+                return;
+
+            }
+
+
+
+            const now =
+                Date.now();
+
+
+            const importedNote = {
+
+                id:
+                    generateId(),
+
+                title:
+                    file.name
+                        .replace(
+                            /\.txt$/i,
+                            ""
+                        ),
+
+                content:
+                    text,
+
+                type:
+                    "note",
+
+                tasks:
+                    [],
+
+                tags:
+                    [
+                        "imported"
+                    ],
+
+                isFavorite:
+                    false,
+
+                isPinned:
+                    false,
+
+                isArchived:
+                    false,
+
+                isTrashed:
+                    false,
+
+                deletedAt:
+                    null,
+
+                color:
+                    "default",
+
+                createdAt:
+                    now,
+
+                updatedAt:
+                    now
+
+            };
+
+
+            notes.unshift(
+                importedNote
+            );
+
+
+            selectedNoteId =
+                importedNote.id;
+
+
+            currentView =
+                "all";
+
+
+            saveNotes();
+
+            render();
+
         };
 
 
-        notes.unshift(note);
+    reader.readAsText(
+        file
+    );
 
-        currentView = "all";
-        selectedNoteId =
-            note.id;
-
-        saveNotes();
-
-        render();
-    };
-
-
-    reader.onerror = () => {
-        window.alert(
-            "Unable to read that file."
-        );
-    };
-
-
-    reader.readAsText(file);
 }
 
 
-/* =========================================================
-   FIND AND REPLACE
-========================================================= */
+
+/* ==========================================
+   FIND / REPLACE
+========================================== */
 
 function openFindPanel() {
 
     const note =
         getSelectedNote();
 
-    if (!note) return;
 
-    findPanel.classList.remove(
-        "hidden"
-    );
+    if (
+        !note ||
+        note.type ===
+        "todo"
+    ) {
+
+        return;
+
+    }
+
+
+    findPanel
+        .classList
+        .remove(
+            "hidden"
+        );
+
 
     findInput.focus();
 
-    findInput.select();
 }
+
 
 
 function closeFindPanel() {
 
-    findPanel.classList.add(
-        "hidden"
-    );
+    findPanel
+        .classList
+        .add(
+            "hidden"
+        );
 
-    findStatus.textContent = "";
+
+    findStatus.textContent =
+        "";
+
 }
+
 
 
 function findNext() {
@@ -1984,10 +3485,8 @@ function findNext() {
     const query =
         findInput.value;
 
-    if (!query) {
-        findStatus.textContent =
-            "Enter text to find";
 
+    if (!query) {
         return;
     }
 
@@ -1995,55 +3494,62 @@ function findNext() {
     const content =
         noteContent.value;
 
-    const source =
-        content.toLowerCase();
-
-    const needle =
-        query.toLowerCase();
-
-
-    let start =
-        noteContent.selectionEnd;
-
 
     let index =
-        source.indexOf(
-            needle,
-            start
-        );
-
-
-    /* Wrap around */
-
-    if (index === -1) {
-        index =
-            source.indexOf(
-                needle,
-                0
+        content
+            .toLowerCase()
+            .indexOf(
+                query.toLowerCase(),
+                noteContent.selectionEnd
             );
+
+
+    if (
+        index ===
+        -1
+    ) {
+
+        index =
+            content
+                .toLowerCase()
+                .indexOf(
+                    query.toLowerCase()
+                );
+
     }
 
 
-    if (index === -1) {
+    if (
+        index ===
+        -1
+    ) {
 
         findStatus.textContent =
             "Not found";
 
         return;
+
     }
 
 
     noteContent.focus();
 
+
     noteContent.setSelectionRange(
+
         index,
-        index + query.length
+
+        index +
+        query.length
+
     );
 
 
     findStatus.textContent =
         "Found";
+
 }
+
 
 
 function replaceCurrent() {
@@ -2051,50 +3557,51 @@ function replaceCurrent() {
     const query =
         findInput.value;
 
-    if (!query) return;
+
+    if (!query) {
+        return;
+    }
 
 
-    const selectedText =
-        noteContent.value.substring(
-            noteContent.selectionStart,
-            noteContent.selectionEnd
-        );
+    const selected =
+        noteContent.value
+            .substring(
+                noteContent.selectionStart,
+                noteContent.selectionEnd
+            );
 
 
     if (
-        selectedText.toLowerCase() ===
-        query.toLowerCase()
+        selected
+            .toLowerCase() ===
+        query
+            .toLowerCase()
     ) {
 
-        const start =
-            noteContent.selectionStart;
-
         noteContent.setRangeText(
+
             replaceInput.value,
+
             noteContent.selectionStart,
+
             noteContent.selectionEnd,
+
             "end"
+
         );
 
-        noteContent.setSelectionRange(
-            start,
-            start +
-            replaceInput.value.length
-        );
 
-        updateTextStatistics();
         queueSave();
 
-        findStatus.textContent =
-            "Replaced";
+        updateStatistics();
 
-        findNext();
-
-    } else {
-
-        findNext();
     }
+
+
+    findNext();
+
 }
+
 
 
 function replaceAll() {
@@ -2102,27 +3609,30 @@ function replaceAll() {
     const query =
         findInput.value;
 
-    if (!query) return;
+
+    if (!query) {
+        return;
+    }
 
 
-    const original =
-        noteContent.value;
-
-    const escapedQuery =
+    const escaped =
         query.replace(
             /[.*+?^${}()|[\]\\]/g,
             "\\$&"
         );
 
+
     const regex =
         new RegExp(
-            escapedQuery,
+            escaped,
             "gi"
         );
 
 
     const matches =
-        original.match(regex);
+        noteContent.value.match(
+            regex
+        );
 
 
     if (!matches) {
@@ -2131,43 +3641,35 @@ function replaceAll() {
             "No matches";
 
         return;
+
     }
 
 
     noteContent.value =
-        original.replace(
+        noteContent.value.replace(
+
             regex,
+
             replaceInput.value
+
         );
-
-
-    updateTextStatistics();
-
-    queueSave();
 
 
     findStatus.textContent =
         `${matches.length} replaced`;
+
+
+    queueSave();
+
+    updateStatistics();
+
 }
 
 
-/* =========================================================
-   PRINT
-========================================================= */
 
-function printSelectedNote() {
-
-    flushCurrentNote();
-
-    if (!getSelectedNote()) return;
-
-    window.print();
-}
-
-
-/* =========================================================
+/* ==========================================
    FONT SIZE
-========================================================= */
+========================================== */
 
 function changeFontSize(amount) {
 
@@ -2181,15 +3683,18 @@ function changeFontSize(amount) {
             )
         );
 
+
     saveSettings();
 
     applySettings();
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    THEME
-========================================================= */
+========================================== */
 
 function toggleTheme() {
 
@@ -2199,57 +3704,71 @@ function toggleTheme() {
             ? "light"
             : "dark";
 
+
     saveSettings();
 
     applySettings();
+
 }
 
 
-/* =========================================================
-   FOCUS MODE
-========================================================= */
+
+/* ==========================================
+   FOCUS
+========================================== */
 
 function toggleFocusMode() {
 
-    document.body.classList.toggle(
-        "focus-mode"
-    );
-
-    focusBtn.classList.toggle(
-        "active",
-        document.body.classList.contains(
+    document.body
+        .classList
+        .toggle(
             "focus-mode"
-        )
-    );
+        );
+
 }
 
 
-/* =========================================================
+
+/* ==========================================
    MOBILE
-========================================================= */
+========================================== */
 
 function openSidebar() {
 
-    sidebar.classList.add(
-        "open"
-    );
+    sidebar
+        .classList
+        .add(
+            "open"
+        );
 
-    mobileOverlay.classList.add(
-        "active"
-    );
+
+    mobileOverlay
+        .classList
+        .add(
+            "active"
+        );
+
 }
+
 
 
 function closeSidebar() {
 
-    sidebar.classList.remove(
-        "open"
-    );
+    sidebar
+        .classList
+        .remove(
+            "open"
+        );
 
-    mobileOverlay.classList.remove(
-        "active"
-    );
+
+    mobileOverlay
+        .classList
+        .remove(
+            "active"
+        );
+
 }
+
 
 
 function openEditorOnMobile() {
@@ -2259,77 +3778,87 @@ function openEditorOnMobile() {
             "(max-width: 650px)"
         ).matches
     ) {
-        editorPanel.classList.add(
-            "mobile-open"
-        );
+
+        editorPanel
+            .classList
+            .add(
+                "mobile-open"
+            );
+
     }
+
 }
+
 
 
 function closeEditorOnMobile() {
 
-    editorPanel.classList.remove(
-        "mobile-open"
-    );
+    editorPanel
+        .classList
+        .remove(
+            "mobile-open"
+        );
+
 }
 
 
-/* =========================================================
-   EVENT LISTENERS
-========================================================= */
 
-
-/* New note */
+/* ==========================================
+   EVENTS
+========================================== */
 
 [
     newNoteBtn,
     emptyNewNoteBtn,
     welcomeNewNoteBtn
-].forEach((button) => {
-
-    button.addEventListener(
-        "click",
-        createNewNote
-    );
-
-});
-
-
-/* Navigation */
-
-$$(".nav-item").forEach(
-    (button) => {
+].forEach(
+    button => {
 
         button.addEventListener(
             "click",
-            () => {
-
-                changeView(
-                    button.dataset.view
-                );
-
-            }
+            createNewNote
         );
 
     }
 );
 
 
-/* Editor input */
+
+$$(".nav-item")
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    changeView(
+                        button.dataset
+                            .view
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
 
 noteTitle.addEventListener(
     "input",
-    () => {
-        queueSave();
-    }
+    queueSave
 );
 
 
 noteContent.addEventListener(
     "input",
     () => {
-        updateTextStatistics();
+
         queueSave();
+
+        updateStatistics();
+
     }
 );
 
@@ -2340,334 +3869,384 @@ tagsInput.addEventListener(
 );
 
 
-/* Favorite */
 
-favoriteBtn.addEventListener(
-    "click",
-    toggleFavorite
-);
-
-
-/* Pin */
-
-pinBtn.addEventListener(
-    "click",
-    togglePin
-);
-
-
-/* Color */
-
-colorSelect.addEventListener(
+noteTypeSelect.addEventListener(
     "change",
-    () => {
-
-        const note =
-            getSelectedNote();
-
-        if (
-            !note ||
-            note.isTrashed
-        ) {
-            return;
-        }
-
-        note.color =
-            colorSelect.value;
-
-        note.updatedAt =
-            Date.now();
-
-        saveNotes();
-
-        renderNotesList();
-    }
+    changeNoteType
 );
 
 
-/* Archive / restore */
 
-archiveBtn.addEventListener(
+addTodoBtn.addEventListener(
     "click",
-    archiveOrRestore
+    addTodo
 );
 
 
-/* Delete */
 
-deleteBtn.addEventListener(
-    "click",
-    deleteSelectedNote
-);
-
-
-/* Duplicate */
-
-duplicateBtn.addEventListener(
-    "click",
-    duplicateSelectedNote
-);
-
-
-/* Copy */
-
-copyBtn.addEventListener(
-    "click",
-    copySelectedNote
-);
-
-
-/* Export */
-
-exportNoteBtn.addEventListener(
-    "click",
-    exportSelectedNote
-);
-
-
-/* Print */
-
-printBtn.addEventListener(
-    "click",
-    printSelectedNote
-);
-
-
-/* Focus */
-
-focusBtn.addEventListener(
-    "click",
-    toggleFocusMode
-);
-
-
-/* Search */
-
-searchInput.addEventListener(
-    "input",
-    () => {
-
-        clearSearchBtn.classList.toggle(
-            "hidden",
-            !searchInput.value
-        );
-
-        renderNotesList();
-    }
-);
-
-
-clearSearchBtn.addEventListener(
-    "click",
-    () => {
-
-        searchInput.value = "";
-
-        clearSearchBtn.classList.add(
-            "hidden"
-        );
-
-        searchInput.focus();
-
-        renderNotesList();
-    }
-);
-
-
-/* Sort */
-
-sortSelect.addEventListener(
-    "change",
-    () => {
-
-        settings.sort =
-            sortSelect.value;
-
-        saveSettings();
-
-        renderNotesList();
-    }
-);
-
-
-/* Theme */
-
-themeToggle.addEventListener(
-    "click",
-    toggleTheme
-);
-
-
-/* Font size */
-
-increaseFontBtn.addEventListener(
-    "click",
-    () => changeFontSize(1)
-);
-
-decreaseFontBtn.addEventListener(
-    "click",
-    () => changeFontSize(-1)
-);
-
-
-/* Backup */
-
-backupBtn.addEventListener(
-    "click",
-    backupAllNotes
-);
-
-
-/* Import */
-
-importBtn.addEventListener(
-    "click",
-    () => {
-        fileInput.click();
-    }
-);
-
-
-fileInput.addEventListener(
-    "change",
-    () => {
-
-        importFile(
-            fileInput.files[0]
-        );
-
-        /*
-         Allow selecting the same file again later.
-        */
-
-        fileInput.value = "";
-    }
-);
-
-
-/* Shortcuts dialog */
-
-shortcutsBtn.addEventListener(
-    "click",
-    () => {
-
-        if (
-            typeof shortcutsDialog.showModal ===
-            "function"
-        ) {
-            shortcutsDialog.showModal();
-        }
-
-    }
-);
-
-
-closeShortcutsBtn.addEventListener(
-    "click",
-    () => {
-        shortcutsDialog.close();
-    }
-);
-
-
-shortcutsDialog.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            event.target ===
-            shortcutsDialog
-        ) {
-            shortcutsDialog.close();
-        }
-
-    }
-);
-
-
-/* Find */
-
-findBtn.addEventListener(
-    "click",
-    openFindPanel
-);
-
-
-closeFindBtn.addEventListener(
-    "click",
-    closeFindPanel
-);
-
-
-findNextBtn.addEventListener(
-    "click",
-    findNext
-);
-
-
-replaceBtn.addEventListener(
-    "click",
-    replaceCurrent
-);
-
-
-replaceAllBtn.addEventListener(
-    "click",
-    replaceAll
-);
-
-
-findInput.addEventListener(
+todoInput.addEventListener(
     "keydown",
-    (event) => {
+    event => {
 
         if (
-            event.key === "Enter"
+            event.key ===
+            "Enter"
         ) {
+
             event.preventDefault();
-            findNext();
+
+            addTodo();
+
         }
 
     }
 );
 
 
-/* Mobile sidebar */
 
-mobileMenuBtn.addEventListener(
-    "click",
-    openSidebar
-);
-
-
-mobileOverlay.addEventListener(
-    "click",
-    closeSidebar
-);
+clearCompletedBtn
+    .addEventListener(
+        "click",
+        clearCompletedTodos
+    );
 
 
-/* =========================================================
+
+favoriteBtn
+    .addEventListener(
+        "click",
+        toggleFavorite
+    );
+
+
+
+pinBtn
+    .addEventListener(
+        "click",
+        togglePin
+    );
+
+
+
+colorSelect
+    .addEventListener(
+        "change",
+        () => {
+
+            const note =
+                getSelectedNote();
+
+
+            if (!note) {
+                return;
+            }
+
+
+            note.color =
+                colorSelect.value;
+
+
+            note.updatedAt =
+                Date.now();
+
+
+            saveNotes();
+
+            renderNotesList();
+
+        }
+    );
+
+
+
+archiveBtn
+    .addEventListener(
+        "click",
+        archiveOrRestore
+    );
+
+
+
+deleteBtn
+    .addEventListener(
+        "click",
+        deleteSelectedNote
+    );
+
+
+
+duplicateBtn
+    .addEventListener(
+        "click",
+        duplicateSelectedNote
+    );
+
+
+
+copyBtn
+    .addEventListener(
+        "click",
+        copySelectedNote
+    );
+
+
+
+exportNoteBtn
+    .addEventListener(
+        "click",
+        exportSelectedNote
+    );
+
+
+
+printBtn
+    .addEventListener(
+        "click",
+        () => {
+
+            flushCurrentNote();
+
+            window.print();
+
+        }
+    );
+
+
+
+focusBtn
+    .addEventListener(
+        "click",
+        toggleFocusMode
+    );
+
+
+
+searchInput
+    .addEventListener(
+        "input",
+        () => {
+
+            clearSearchBtn
+                .classList
+                .toggle(
+                    "hidden",
+                    !searchInput.value
+                );
+
+
+            renderNotesList();
+
+        }
+    );
+
+
+
+clearSearchBtn
+    .addEventListener(
+        "click",
+        () => {
+
+            searchInput.value =
+                "";
+
+
+            clearSearchBtn
+                .classList
+                .add(
+                    "hidden"
+                );
+
+
+            renderNotesList();
+
+        }
+    );
+
+
+
+sortSelect
+    .addEventListener(
+        "change",
+        () => {
+
+            settings.sort =
+                sortSelect.value;
+
+
+            saveSettings();
+
+            renderNotesList();
+
+        }
+    );
+
+
+
+themeToggle
+    .addEventListener(
+        "click",
+        toggleTheme
+    );
+
+
+
+increaseFontBtn
+    .addEventListener(
+        "click",
+        () =>
+            changeFontSize(1)
+    );
+
+
+
+decreaseFontBtn
+    .addEventListener(
+        "click",
+        () =>
+            changeFontSize(-1)
+    );
+
+
+
+backupBtn
+    .addEventListener(
+        "click",
+        backupAllNotes
+    );
+
+
+
+importBtn
+    .addEventListener(
+        "click",
+        () => {
+
+            fileInput.click();
+
+        }
+    );
+
+
+
+fileInput
+    .addEventListener(
+        "change",
+        () => {
+
+            importFile(
+                fileInput.files[0]
+            );
+
+
+            fileInput.value =
+                "";
+
+        }
+    );
+
+
+
+shortcutsBtn
+    .addEventListener(
+        "click",
+        () => {
+
+            shortcutsDialog
+                .showModal();
+
+        }
+    );
+
+
+
+closeShortcutsBtn
+    .addEventListener(
+        "click",
+        () => {
+
+            shortcutsDialog
+                .close();
+
+        }
+    );
+
+
+
+findBtn
+    .addEventListener(
+        "click",
+        openFindPanel
+    );
+
+
+
+closeFindBtn
+    .addEventListener(
+        "click",
+        closeFindPanel
+    );
+
+
+
+findNextBtn
+    .addEventListener(
+        "click",
+        findNext
+    );
+
+
+
+replaceBtn
+    .addEventListener(
+        "click",
+        replaceCurrent
+    );
+
+
+
+replaceAllBtn
+    .addEventListener(
+        "click",
+        replaceAll
+    );
+
+
+
+mobileMenuBtn
+    .addEventListener(
+        "click",
+        openSidebar
+    );
+
+
+
+mobileOverlay
+    .addEventListener(
+        "click",
+        closeSidebar
+    );
+
+
+
+/* ==========================================
    KEYBOARD SHORTCUTS
-========================================================= */
+========================================== */
 
 document.addEventListener(
     "keydown",
-    (event) => {
+    event => {
 
-        const control =
+        const ctrl =
             event.ctrlKey ||
             event.metaKey;
 
 
-        /*
-         Ctrl / Cmd + N
-         New note
-        */
 
         if (
-            control &&
-            event.key.toLowerCase() === "n"
+            ctrl &&
+            event.key
+                .toLowerCase() ===
+                "n"
         ) {
 
             event.preventDefault();
@@ -2675,81 +4254,81 @@ document.addEventListener(
             createNewNote();
 
             return;
+
         }
 
 
-        /*
-         Ctrl / Cmd + S
-         Save
-        */
 
         if (
-            control &&
-            event.key.toLowerCase() === "s"
+            ctrl &&
+            event.key
+                .toLowerCase() ===
+                "s"
         ) {
 
             event.preventDefault();
 
             flushCurrentNote();
 
-            saveStatus.textContent =
-                "Saved";
-
             return;
+
         }
 
 
-        /*
-         Ctrl / Cmd + K
-         Search notes
-        */
 
         if (
-            control &&
-            event.key.toLowerCase() === "k"
+            ctrl &&
+            event.key
+                .toLowerCase() ===
+                "k"
         ) {
 
             event.preventDefault();
 
             searchInput.focus();
-            searchInput.select();
 
             return;
+
         }
 
 
-        /*
-         Ctrl / Cmd + F
-         Find inside current note
-        */
 
         if (
-            control &&
+            ctrl &&
             !event.shiftKey &&
-            event.key.toLowerCase() === "f"
+            event.key
+                .toLowerCase() ===
+                "f"
         ) {
 
             const note =
                 getSelectedNote();
 
-            if (note) {
+
+            if (
+                note &&
+                note.type ===
+                "note"
+            ) {
+
                 event.preventDefault();
+
                 openFindPanel();
+
             }
 
             return;
+
         }
 
 
-        /*
-         Ctrl / Cmd + Shift + F
-         Favorite
-        */
 
         if (
-            control &&
+            ctrl &&
             event.shiftKey &&
-            event.key.toLowerCase() === "f"
+            event.key
+                .toLowerCase() ===
+                "f"
         ) {
 
             event.preventDefault();
@@ -2757,17 +4336,16 @@ document.addEventListener(
             toggleFavorite();
 
             return;
+
         }
 
 
-        /*
-         Ctrl / Cmd + E
-         Export
-        */
 
         if (
-            control &&
-            event.key.toLowerCase() === "e"
+            ctrl &&
+            event.key
+                .toLowerCase() ===
+                "e"
         ) {
 
             event.preventDefault();
@@ -2775,43 +4353,29 @@ document.addEventListener(
             exportSelectedNote();
 
             return;
+
         }
 
 
-        /*
-         Escape
-        */
 
         if (
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ) {
 
-            if (
-                !findPanel.classList.contains(
-                    "hidden"
-                )
-            ) {
-                closeFindPanel();
-                return;
-            }
+            closeFindPanel();
 
 
             if (
-                document.body.classList.contains(
-                    "focus-mode"
-                )
+                document.body
+                    .classList
+                    .contains(
+                        "focus-mode"
+                    )
             ) {
+
                 toggleFocusMode();
-                return;
-            }
 
-
-            if (
-                window.matchMedia(
-                    "(max-width: 650px)"
-                ).matches
-            ) {
-                closeEditorOnMobile();
             }
 
         }
@@ -2820,16 +4384,16 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   DATA SAFETY EVENTS
-========================================================= */
+
+/* ==========================================
+   SAVE BEFORE LEAVING
+========================================== */
 
 window.addEventListener(
     "beforeunload",
-    () => {
-        flushCurrentNote();
-    }
+    flushCurrentNote
 );
+
 
 
 document.addEventListener(
@@ -2840,16 +4404,19 @@ document.addEventListener(
             document.visibilityState ===
             "hidden"
         ) {
+
             flushCurrentNote();
+
         }
 
     }
 );
 
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
+
+/* ==========================================
+   INITIALIZE
+========================================== */
 
 function initializeApp() {
 
@@ -2860,14 +4427,10 @@ function initializeApp() {
     applySettings();
 
 
-    /*
-     Select the newest available regular note.
-    */
-
-    const initialNote =
+    const firstNote =
         notes
             .filter(
-                (note) =>
+                note =>
                     !note.isTrashed &&
                     !note.isArchived
             )
@@ -2878,14 +4441,18 @@ function initializeApp() {
             )[0];
 
 
-    if (initialNote) {
+    if (firstNote) {
+
         selectedNoteId =
-            initialNote.id;
+            firstNote.id;
+
     }
 
 
     render();
+
 }
+
 
 
 initializeApp();
