@@ -1,0 +1,31 @@
+name: NotesApp CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check project files
+        run: |
+          test -f FirstWeb/index.html
+          test -f FirstWeb/styles.css
+          test -f FirstWeb/script.js
+
+      - name: Check JavaScript syntax
+        run: node --check FirstWeb/script.js
+
+      - name: CI passed
+        run: echo "NotesApp CI passed successfully!"
