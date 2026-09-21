@@ -5106,12 +5106,12 @@ function initializeApp() {
         selectedNoteId =
             first.id;
 
-    
+    }
 
 
     render();
 
-
+}
 
 
 initializeApp();
